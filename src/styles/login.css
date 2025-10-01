@@ -1,0 +1,33 @@
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #ada4a4;
+            background-color: #453e3e;
+        }
+
+        .form-box {
+            border: 2px solid #1E90FF;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: auto;
+            margin-top: 10vh;
+        }
+
+        .btn-gamer {
+            background: #1a8e05;
+            font-weight: bold;
+        }
+
+        .btn-gamer:hover {
+            background: #1E90FF;
+            color: #fff;
+        }
+
+        a {
+            color: #1E90FF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #39FF14;
+        }

@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './styles/App.css';
+import { Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/home';
+import Productos from './pages/productos';
+import Login from './pages/login';
+import PropyStates from './pages/PropyState';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import HeaderComponent from './components/HeaderComponent';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <HeaderComponent />
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/productos' element={<Productos />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/propyState' element={<PropyStates />} />
+    </Routes>
+    </>
   );
 }
 
