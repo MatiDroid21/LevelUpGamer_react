@@ -13,6 +13,8 @@ import { useState } from "react";
 
 // Cambia el nombre de la función a mayúscula para que sea un componente válido
 export default function Productos() {
+    const [modalOpen, setModalOpen] = useState(null); // id del producto abierto
+
     const productos = [
         {
             id: 1,
@@ -97,33 +99,60 @@ export default function Productos() {
         producto.codigo.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    return(
+    return (
         <div className="container">
-            {/*barra de busqueda*/}
-            <input type="text" className="form-control my-4" placeholder="Buscar productos..." onChange={handleSearchChange} />
-            {/* filtro */}  
-            
-            <h1 className="text-center my-4">Nuestros Productos</h1>
+            {/* barra de búsqueda */}
+            <div className="my-4">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar productos..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
 
+            </div>
+
+            <h1>Nuestros Productos</h1>
             <div className="row">
                 {filteredProducts.map((producto) => (
                     <div className="col-md-4 mb-4" key={producto.id}>
                         <div className="card h-100">
-                            <img src={producto.imagen} className="card-img-top" alt={producto.nombre} />
+                            <img src={producto.imagen} className="img-container" alt={producto.nombre} />
                             <div className="card-body">
-                                <h5 className="card-title">{producto.nombre}</h5>
-                                <p className="card-text">{producto.descripcion}</p>
-                                <p className="card-text"><strong>Precio: </strong>${producto.precio.toLocaleString()}</p>
-                                <p className="card-text"><strong>Código: </strong>{producto.codigo}</p>
+                                <h5>{producto.nombre}</h5>
+                                <p>{producto.descripcion}</p>
+                                <p><strong>Precio:</strong> ${producto.precio.toLocaleString()}</p>
+                                <button className="btn btn-secondary" onClick={() => setModalOpen(producto.id)}>
+                                    Ver detalles
+                                </button>
                             </div>
                         </div>
+
+                        {/* Modal */}
+                        {modalOpen === producto.id && (
+                            <div className="modal d-block" tabIndex="-1" onClick={() => setModalOpen(null)}>
+                                <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title">{producto.nombre}</h5>
+                                            <button type="button" className="btn-close" onClick={() => setModalOpen(null)}></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <img src={producto.imagen} className="img-fluid mb-3" alt={producto.nombre} />
+                                            <p>{producto.descripcion}</p>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button className="btn btn-secondary" onClick={() => setModalOpen(null)}>Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 ))}
-                {filteredProducts.length === 0 && (
-                    <p className="text-center">No se encontraron productos que coincidan con la búsqueda.</p>
-                )}
             </div>
-            <FooterComponent />
         </div>
     )
 }

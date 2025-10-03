@@ -197,6 +197,6 @@ export default function Home() {
       )}
       <FooterComponent />
     </div>
-    
+
   );
 }
