@@ -1,0 +1,162 @@
+[
+  {
+    "id": "RK001",
+    "nombre": "Teclado Redragon Kumara",
+    "descripcion": "Teclado mecánico retroiluminado ideal para gamers.",
+    "precio": 44990,
+    "imagen": "../assets/img/productos/kumara.png",
+    "modalId": "modalRK001"
+  },
+  {
+    "id": "LG502",
+    "nombre": "Mouse Logitech G502 Hero",
+    "descripcion": "Sensor HERO 25K, rendimiento y precisión.",
+    "precio": 62900,
+    "imagen": "../assets/img/productos/logitech.jpg",
+    "modalId": "modalLG502"
+  },
+  {
+    "id": "RZ043",
+    "nombre": "MousePad Razer RGB",
+    "descripcion": "Superficie suave con iluminación Chroma.",
+    "precio": 15900,
+    "imagen": "../assets/img/productos/razer-firefly-V2-Pro-mousepad.png",
+    "modalId": "modalRZ043"
+  },
+  {
+    "id": "KF093",
+    "nombre": "RAM Kingston Fury 16GB DDR4",
+    "descripcion": "Rendimiento extremo para gaming o trabajo.",
+    "precio": 35500,
+    "imagen": "../assets/img/productos/fury_ram.jpg",
+    "modalId": "modalKF093"
+  },
+  {
+    "id": "TUF161",
+    "nombre": "Asus TUF F16 RTX 4090",
+    "descripcion": "Notebook gamer con RTX 4090, pantalla 16\" Full HD 240Hz y procesador Intel i9 13ª gen.",
+    "precio": 700000,
+    "imagen": "../assets/img/productos/tufF16.png",
+    "modalId": "modalTUF161"
+  },
+  {
+    "id": "MSK17",
+    "nombre": "MSI Katana 17",
+    "descripcion": "Notebook gamer con pantalla 17.3” Full HD 144Hz, Intel i7 13ª gen y RTX 4060.",
+    "precio": 850000,
+    "imagen": "../assets/img/productos/katana17.png",
+    "modalId": "modalMSK17"
+  },
+  {
+    "id": "PH300",
+    "nombre": "Acer Predator Helios 300",
+    "descripcion": "Laptop gamer con Intel i7, RTX 3060 y pantalla 15.6\" Full HD 144Hz.",
+    "precio": 1249990,
+    "imagen": "../assets/img/productos/predator.jpg",
+    "modalId": "modalPH300"
+  },
+  {
+    "id": "HP150",
+    "nombre": "HP Victus 15",
+    "descripcion": "Rendimiento sólido para gaming y productividad, listo para cualquier desafío.",
+    "precio": 799990,
+    "imagen": "../assets/img/productos/victus.jpg",
+    "modalId": "modalHP150"
+  },
+  {
+    "id": "SG001",
+    "nombre": "Silla Gamer Alpha",
+    "descripcion": "Cómoda y ergonómica, perfecta para largas sesiones de gaming.",
+    "precio": 25990,
+    "imagen": "../assets/img/productos/silla1.jpg",
+    "modalId": "modalSG001"
+  },
+  {
+    "id": "SG002",
+    "nombre": "Silla Gamer Beta",
+    "descripcion": "Ajustable y resistente, ideal para gaming y estudio.",
+    "precio": 29990,
+    "imagen": "../assets/img/productos/silla2.jpg",
+    "modalId": "modalSG002"
+  },
+  {
+    "id": "SG003",
+    "nombre": "Silla Gamer Gamma",
+    "descripcion": "Diseño ergonómico con soporte lumbar, máxima comodidad.",
+    "precio": 34990,
+    "imagen": "../assets/img/productos/silla3.png",
+    "modalId": "modalSG003"
+  },
+  {
+    "id": "SG004",
+    "nombre": "Silla Gamer Delta",
+    "descripcion": "Material premium y ajustes personalizados, ideal para cualquier setup.",
+    "precio": 39990,
+    "imagen": "../assets/img/productos/silla4.jpg",
+    "modalId": "modalSG004"
+  },
+  {
+    "id": "NS002",
+    "nombre": "Nintendo Switch 2",
+    "descripcion": "Consola híbrida de última generación con mejoras en potencia y pantalla OLED.",
+    "precio": 399990,
+    "imagen": "../assets/img/productos/nintendosw2.jpg",
+    "modalId": "modalNS002"
+  },
+  {
+    "id": "PS501",
+    "nombre": "PlayStation 5",
+    "descripcion": "La nueva generación de Sony, con gráficos de alto nivel y DualSense inmersivo.",
+    "precio": 549990,
+    "imagen": "../assets/img/productos/ps5.jpg",
+    "modalId": "modalPS501"
+  },
+  {
+    "id": "RG001",
+    "nombre": "ASUS ROG Ally",
+    "descripcion": "Consola portátil con Windows 11 y potencia gaming para jugar en cualquier lugar.",
+    "precio": 699990,
+    "imagen": "../assets/img/productos/rogally.jpg",
+    "modalId": "modalRG001"
+  },
+  {
+    "id": "XB001",
+    "nombre": "Xbox Series X",
+    "descripcion": "La consola más potente de Microsoft, con 4K nativo y Game Pass integrado.",
+    "precio": 529990,
+    "imagen": "../assets/img/productos/xboxseriesx.png",
+    "modalId": "modalXB001"
+  },
+  {
+    "id": "UNO001",
+    "nombre": "UNO",
+    "descripcion": "Juego de cartas rápido y divertido donde gana el primero en quedarse sin cartas.",
+    "precio": 9990,
+    "imagen": "../assets/img/productos/uno.jpg",
+    "modalId": "modalUNO001"
+  },
+  {
+    "id": "MONO002",
+    "nombre": "Monopoly",
+    "descripcion": "El clásico juego de mesa donde negocias propiedades y construyes tu imperio inmobiliario.",
+    "precio": 24990,
+    "imagen": "../assets/img/productos/monopoly.jpg",
+    "modalId": "modalMONO002"
+  },
+  {
+    "id": "PREG003",
+    "nombre": "Preguntados",
+    "descripcion": "Juego de trivia con miles de preguntas para poner a prueba tus conocimientos en distintas categorías.",
+    "precio": 19990,
+    "imagen": "../assets/img/productos/preguntados.jpg",
+    "modalId": "modalPREG003"
+  },
+  {
+    "id": "CLUE004",
+    "nombre": "Clue",
+    "descripcion": "El clásico juego de misterio donde debes descubrir al asesino, la habitación y el arma.",
+    "precio": 18990,
+    "imagen": "../assets/img/productos/clue.jpg",
+    "modalId": "modalCLUE004"
+  }
+]

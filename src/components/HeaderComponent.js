@@ -23,7 +23,7 @@ export default function HeaderComponent() {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/productos">
-                                <i className="fa-solid fa-people-line fa-fade" style={{ color: "#63E6BE" }}></i> Productos
+                                Productos
                             </Link>
                         </li>
 
