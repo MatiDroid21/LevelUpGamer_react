@@ -1,38 +1,89 @@
-import "../styles/login.css";
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function home(){
-    return(
-    <div className="container mt-5">
-        <div className="form-box text-center">
-        <h2 className="fw-bold">Inicia Sesión</h2>
-        <p>Bienvenido de nuevo, a LevelUpGamer 🎮</p>
-        <form id="loginForm">
-            <div className="mb-3 text-start">
-                <label for="">Correo Electrónico</label>
-                <div className="input-group">
+export default function LoginComponent() {
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const navigate = useNavigate();
 
-                    <div className="input-group-text"><i className="fa-solid fa-at fa-fade" style={{ color: "#2c6896" }}></i></div>
-                    <input type="email" className="form-control" id="email" placeholder="correo@ejemplo.com" />
-                </div>
+  const validarLogin = (event) => {
+    event.preventDefault();
 
-            </div>
-            <div className="mb-3 text-start">
-                <label for="">Contraseña</label>
-                <div className="input-group">
+    if (!correo && !contrasena) {
+      Swal.fire({
+        title: "Error!",
+        text: "Debes ingresar tu correo y contraseña",
+        icon: "error",
+      });
+    } else if (!correo) {
+      Swal.fire({
+        title: "Error!",
+        text: "Debes ingresar tu correo",
+        icon: "error",
+      });
+    } else if (!contrasena) {
+      Swal.fire({
+        title: "Error!",
+        text: "Debes ingresar tu contraseña",
+        icon: "error",
+      });
+    } else {
+      // Guardar usuario en localStorage
+      localStorage.setItem("usuario", correo);
+      
+      // 🔔 Disparar evento para notificar al HeaderComponent
+      window.dispatchEvent(new Event("usuarioCambiado"));
 
-                    <div className="input-group-text"><i className="fa-solid fa-key fa-fade" style={{ color: "#2c6896" }}></i></div>
-                    <input type="password" className="form-control" id="password" placeholder="***********" />
-                </div>
+      Swal.fire({
+        title: "Bienvenido!",
+        text: correo,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/"); // redirige a Home
+      });
+    }
+  };
 
-            </div>
+  return (
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card p-4 shadow" style={{ maxWidth: "400px", width: "100%" }}>
+        <h2 className="text-center fw-bold mb-3">Iniciar sesión</h2>
+        <form onSubmit={validarLogin}>
+          <div className="mb-3 text-start">
+            <label htmlFor="email" className="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              placeholder="correo@ejemplo.com"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+          </div>
 
-           <Link to='/'><button type="submit" className="btn btn-primary w-100">Iniciar Sesión</button></Link>
+          <div className="mb-3 text-start">
+            <label htmlFor="password" className="form-label">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="********"
+              value={contrasena}
+              onChange={(e) => setContrasena(e.target.value)}
+            />
+          </div>
+
+          <button type="submit" className="btn btn-success w-100">Iniciar sesión</button>
+
+          <p className="mt-3 text-center">
+            ¿No tienes una cuenta?{" "}
+            <Link to="/register" className="text-decoration-none">Regístrate aquí</Link>
+          </p>
         </form>
-        <p className="mt-3">¿No tienes cuenta? <a href="registrarse.html">Regístrate aquí</a></p>
+      </div>
     </div>
-    </div>
-        
-    )
-
+  );
 }

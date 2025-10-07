@@ -1,36 +1,126 @@
-import logo from '../assets/img/LevelupGamer.png';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/img/LevelupGamer.png";
 
 export default function HeaderComponent() {
-    return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">
-                    <img src={logo} alt="logo" width="30" height="24" />
-                </a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+  const [hora, setHora] = useState("");
+  const [modoOscuro, setModoOscuro] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || null);
+  const navigate = useNavigate();
+
+  // Actualizar hora
+  useEffect(() => {
+    const actualizarHora = () => {
+      const ahora = new Date();
+      const horas = String(ahora.getHours()).padStart(2, "0");
+      const minutos = String(ahora.getMinutes()).padStart(2, "0");
+      setHora(`${horas}:${minutos}`);
+    };
+    actualizarHora();
+    const intervalo = setInterval(actualizarHora, 1000);
+    return () => clearInterval(intervalo);
+  }, []);
+
+  // Modo oscuro
+  useEffect(() => {
+    const htmlEl = document.documentElement;
+    htmlEl.setAttribute("data-bs-theme", modoOscuro ? "dark" : "light");
+  }, [modoOscuro]);
+
+  // Detectar cambio del sistema
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = (e) => setModoOscuro(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  // Escuchar cambios de usuario (login/logout)
+  useEffect(() => {
+    const actualizarUsuario = () => setUsuario(localStorage.getItem("usuario"));
+    window.addEventListener("usuarioCambiado", actualizarUsuario);
+    return () => window.removeEventListener("usuarioCambiado", actualizarUsuario);
+  }, []);
+
+  // Cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem("usuario");
+    setUsuario(null);
+    navigate("/");
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        {/* Logo */}
+        <a className="navbar-brand" href="#">
+          <img src={logo} alt="logo" width="30" height="24" />
+        </a>
+
+        {/* Botón responsive */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        {/* Contenido del navbar */}
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {/* Menú principal */}
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link active" to="/">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/productos">Productos</Link>
+            </li>
+          </ul>
+
+          {/* Reloj */}
+          <ul className="navbar-nav mb-2 mb-lg-0">
+            <li className="nav-item d-flex align-items-center">
+              <span className="nav-link active">{hora}</span>
+            </li>
+          </ul>
+
+          {/* Usuario o Login */}
+          <div className="d-flex align-items-center ms-3">
+            {usuario ? (
+              <>
+                <span className="me-2 text-success fw-bold">👤 {usuario}</span>
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={handleLogout}
+                >
+                  Cerrar sesión
                 </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/productos">
-                                Productos
-                            </Link>
-                        </li>
+              </>
+            ) : (
+              <Link to="/login" className="btn btn-outline-success btn-sm">Iniciar sesión</Link>
+            )}
+          </div>
 
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-    );
+          {/* Switch modo oscuro */}
+          <div className="form-check form-switch text-nowrap ms-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="themeSwitch"
+              checked={modoOscuro}
+              onChange={() => setModoOscuro(!modoOscuro)}
+            />
+            <label className="form-check-label" htmlFor="themeSwitch">💡 / 🌙</label>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }

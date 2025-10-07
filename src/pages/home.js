@@ -84,45 +84,50 @@ export default function Home() {
 
   ];
 
-  return (
-    <div id="carouselExample" className="carousel slide">
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src={fondo1} className="d-block w-100 img-carousel" alt="fondo 1" />
-          <div className="carousel-caption d-none d-md-block">
-            <h5>Arma Tu Setup Gamer</h5>
-            <p>sillas y periféricos para el próximo nivel.</p>
+ return (
+    <>
+      {/* Carrusel */}
+      <div id="carouselExample" className="carousel slide">
+        <div className="carousel-inner">
+          {/* Slide 1 */}
+          <div className="carousel-item active">
+            <img src={fondo1} className="d-block w-100 img-carousel" alt="fondo 1" />
+            <div className="carousel-caption d-none d-md-block">
+              <h5 className="card-text text-white">Arma Tu Setup Gamer</h5>
+              <p className="card-text text-white">Sillas y periféricos para el próximo nivel.</p>
+            </div>
+          </div>
+
+          {/* Slide 2 */}
+          <div className="carousel-item">
+            <img src={fondo2} className="d-block w-100 img-carousel" alt="fondo 2" />
+            <div className="carousel-caption d-none d-md-block">
+              <h5 className="card-text text-white">Despacho en todo Chile</h5>
+              <p className="card-text text-white">Compra online y recibe a las puertas de tu casa.</p>
+            </div>
+          </div>
+
+          {/* Slide 3 */}
+          <div className="carousel-item">
+            <img src={fondo3} className="d-block w-100 img-carousel" alt="fondo 3" />
+            <div className="carousel-caption d-none d-md-block">
+              <h5 className="card-text text-white">Ofertas Épicas</h5>
+              <p className="card-text text-white">Consolas, Computadoras y accesorios al mejor precio.</p>
+            </div>
           </div>
         </div>
-        <div className="carousel-item">
-          <img src={fondo2} className="d-block w-100 img-carousel" alt="fondo 2" />
-          <div className="carousel-caption d-none d-md-block">
-            <h5>Despacho en todo Chile</h5>
-            <p>Compra online y recibe a las puertas de tu casa.</p>
-          </div>
-        </div>
-        <div className="carousel-item">
-          <img src={fondo3} className="d-block w-100 img-carousel" alt="fondo 3" />
-          <div className="carousel-caption d-none d-md-block">
-            <h5>Ofertas Épicas</h5>
-            <p>Consolas, Computadoras y accesorios al mejor precio.</p>
-          </div>
-        </div>
+
+        {/* Controles */}
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <i className="fa-solid fa-chevron-left" style={{ color: "#63E6BE" }}></i>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <i className="fa-solid fa-chevron-right" style={{ color: "#63E6BE" }}></i>
+        </button>
       </div>
-      <button
-        className="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="prev"
-      ><i className="fa-solid fa-chevron-left" style={{ color: "#63E6BE;" }}></i></button>
-      <button
-        className="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="next"
-      ><i className="fa-solid fa-chevron-right" style={{ color: "#63E6BE;" }}></i></button>
-      {/* cards con algunos productos */}
-      <section className="container mt-5 mb-5">
+
+      {/* Sección de productos */}
+      <section className="container mt-6 mb-6">
         <h3 className="mb-4">🎮 Productos Destacados</h3>
         <div className="row g-4 justify-content-center">
           {productos.map((prod) => (
@@ -136,10 +141,7 @@ export default function Home() {
                   <span>{prod.codigo}</span>
                   <p className="card-text">{prod.descripcion}</p>
                   <strong className="text-success">${prod.precio}</strong>
-                  <button
-                    className="btn btn-primary mt-auto"
-                    onClick={() => setModalProducto(prod)}
-                  >
+                  <button className="btn btn-primary mt-auto" onClick={() => setModalProducto(prod)}>
                     Ver más
                   </button>
                 </div>
@@ -148,6 +150,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Modal producto */}
       {modalProducto && (
         <div
           className="modal fade show"
@@ -180,23 +184,18 @@ export default function Home() {
                 <strong className="text-success">${modalProducto.precio}</strong>
               </div>
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => setModalProducto(null)}
-                >
+                <button type="button" className="btn btn-secondary" onClick={() => setModalProducto(null)}>
                   Cerrar
                 </button>
-                <button type="button" className="btn btn-primary">
-                  Agregar al Carrito
-                </button>
+            
               </div>
             </div>
           </div>
         </div>
       )}
-      <FooterComponent />
-    </div>
 
+      {/* Footer fuera del carrusel */}
+      <FooterComponent />
+    </>
   );
 }
