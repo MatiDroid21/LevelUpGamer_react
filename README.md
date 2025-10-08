@@ -74,8 +74,6 @@ El proyecto utiliza **Karma** como test runner junto con **Jasmine** para ejecut
   ```
 
 - Los resultados de los tests y la cobertura se generan en la carpeta `coverage/`.
-
-Puedes agregar nuevos tests para tus componentes siguiendo el formato de Jasmine y asegurarte de que la aplicación se mantenga confiable y funcional.
 ---
 
 ## Licencia
