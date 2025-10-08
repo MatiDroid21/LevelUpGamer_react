@@ -1,0 +1,48 @@
+.footer {
+  background: linear-gradient(180deg, #0e1411, #0a0d0b);
+  color: #d6ffd6;
+  border-top: 2px solid #00ff99;
+}
+
+.text-accent {
+  color: #00ff99;
+}
+
+.footer-links a {
+  color: #b3ffcc;
+}
+.footer-links a:hover {
+  color: #00ff99;
+}
+
+.footer-social a {
+  color: #b3ffcc;
+}
+.footer-social a:hover {
+  color: #00ff99;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  background-color: #0a0f0b;
+  color: #b3ffcc;
+  border-top: 1px solid #004d26;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* Espaciado uniforme entre íconos */
+  margin-top: 12px;
+}
+
+.footer-social a {
+  color: #ccc;
+  font-size: 1.5rem; /* un poco más grandes */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: #9b59b6;
+  transform: scale(1.2);
+}

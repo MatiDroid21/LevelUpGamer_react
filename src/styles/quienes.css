@@ -1,0 +1,54 @@
+    .hero {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        padding: 5rem 2rem;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        text-shadow: 0 0 15px #00ffcc;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .seccion {
+        padding: 4rem 2rem;
+    }
+
+    .seccion h2 {
+        color: #00ffcc;
+        font-weight: bold;
+        text-shadow: 0 0 8px #00ffcc;
+        margin-bottom: 1.5rem;
+    }
+
+    .icono {
+        font-size: 3rem;
+        color: #00ffcc;
+        text-shadow: 0 0 8px #00ffcc;
+    }
+
+    .card-gamer {
+        background: #121212;
+        border: 1px solid #00ffcc44;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .card-gamer:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px #00ffcc55;
+    }
+
+    footer {
+        background: #0a0a0a;
+        color: #aaa;
+        padding: 2rem 0;
+        text-align: center;
+        border-top: 1px solid #00ffcc55;
+    }

@@ -23,7 +23,7 @@ export default function HeaderComponent() {
     return () => clearInterval(intervalo);
   }, []);
 
-  // Modo oscuro
+  // Aplicar modo oscuro/claro
   useEffect(() => {
     const htmlEl = document.documentElement;
     htmlEl.setAttribute("data-bs-theme", modoOscuro ? "dark" : "light");
@@ -37,7 +37,7 @@ export default function HeaderComponent() {
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  // Escuchar cambios de usuario (login/logout)
+  // Escuchar cambios en el usuario (login/logout)
   useEffect(() => {
     const actualizarUsuario = () => setUsuario(localStorage.getItem("usuario"));
     window.addEventListener("usuarioCambiado", actualizarUsuario);
@@ -52,12 +52,12 @@ export default function HeaderComponent() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
       <div className="container-fluid">
         {/* Logo */}
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <img src={logo} alt="logo" width="30" height="24" />
-        </a>
+        </Link>
 
         {/* Botón responsive */}
         <button
@@ -79,8 +79,16 @@ export default function HeaderComponent() {
             <li className="nav-item">
               <Link className="nav-link active" to="/">Home</Link>
             </li>
+
+            {/* Solo visible si hay usuario */}
+            {usuario && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/productos">Productos</Link>
+              </li>
+            )}
+
             <li className="nav-item">
-              <Link className="nav-link" to="/productos">Productos</Link>
+              <Link className="nav-link" to="/quienes-somos">Quiénes Somos</Link>
             </li>
           </ul>
 
@@ -104,7 +112,9 @@ export default function HeaderComponent() {
                 </button>
               </>
             ) : (
-              <Link to="/login" className="btn btn-outline-success btn-sm">Iniciar sesión</Link>
+              <Link to="/login" className="btn btn-outline-success btn-sm">
+                Iniciar sesión
+              </Link>
             )}
           </div>
 
@@ -117,7 +127,9 @@ export default function HeaderComponent() {
               checked={modoOscuro}
               onChange={() => setModoOscuro(!modoOscuro)}
             />
-            <label className="form-check-label" htmlFor="themeSwitch">💡 / 🌙</label>
+            <label className="form-check-label" htmlFor="themeSwitch">
+              {modoOscuro ? "🌙" : "💡"}
+            </label>
           </div>
         </div>
       </div>

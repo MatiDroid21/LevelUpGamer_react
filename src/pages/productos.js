@@ -66,27 +66,35 @@ export default function Productos() {
   const totalConDescuento = total - total * descuento;
 
   return (
-    <div className="container my-5">
-      <SearchBar searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
+    <>
+      <div className="container my-5">
+        <SearchBar searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
 
-      <h1 className="mb-4">Nuestros Productos</h1>
+        <h1 className="mb-4">Nuestros Productos</h1>
 
-      <div className="row">
-        {filteredProducts.map((producto) => (
-          <ProductCard key={producto.id} producto={producto} agregarAlCarrito={agregarAlCarrito} />
-        ))}
+        <div className="row">
+          {filteredProducts.map((producto) => (
+            <ProductCard
+              key={producto.id}
+              producto={producto}
+              agregarAlCarrito={agregarAlCarrito}
+            />
+          ))}
+        </div>
+
+        <Cart
+          carrito={carrito}
+          eliminarDelCarrito={eliminarDelCarrito}
+          total={total}
+          descuento={descuento}
+          totalConDescuento={totalConDescuento}
+          setCarrito={setCarrito}
+        />
       </div>
 
-      <Cart
-        carrito={carrito}
-        eliminarDelCarrito={eliminarDelCarrito}
-        total={total}
-        descuento={descuento}
-        totalConDescuento={totalConDescuento}
-        setCarrito={setCarrito}
-      />
-
+      {/* 👇 Ahora el footer está fuera del container */}
       <FooterComponent />
-    </div>
+    </>
   );
+
 }
