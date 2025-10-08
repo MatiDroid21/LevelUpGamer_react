@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# LevelUpGamer 🎮
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto para la asignatura **Desarrollo Fullstack 2**  
+Duoc UC - Sede San Joaquín
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Descripción
 
-### `npm start`
+LevelUpGamer es una tienda online desarrollada en **React** que permite a los usuarios explorar, buscar y comprar productos gamer como periféricos, componentes, laptops y juegos. El proyecto incluye funcionalidades de carrito de compras, búsqueda de productos, visualización de detalles y descuentos especiales para usuarios Duoc UC.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Características
 
-### `npm test`
+- 🖱️ Catálogo de productos gamer con imágenes y descripciones
+- 🔎 Barra de búsqueda en tiempo real
+- 🛒 Carrito de compras persistente (localStorage)
+- 💳 Cálculo de descuentos para usuarios con correo @duocuc.cl
+- 📦 Modal de detalles de producto
+- 📱 Diseño responsivo y moderno
+- 🧪 Tests automáticos con Karma y Jasmine
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Instalación
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/LevelUpGamer_React.git
+   cd LevelUpGamer_React
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Inicia la aplicación:
+   ```bash
+   npm start
+   ```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Scripts útiles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `npm start` — Ejecuta la app en modo desarrollo
+- `npm run build` — Compila la app para producción
+- `npm run test:ui` — Ejecuta los tests de interfaz con Karma
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Estructura del proyecto
 
-## Learn More
+```
+src/
+  ├── assets/           # Imágenes y recursos
+  ├── components/       # Componentes reutilizables (Footer, Carrito, TarjetaProducto, etc.)
+  ├── pages/            # Vistas principales (Home, Productos)
+  ├── styles/           # Archivos CSS
+  └── App.js            # Componente principal
+```
+## Karma
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+El proyecto utiliza **Karma** como test runner junto con **Jasmine** para ejecutar pruebas automáticas de los componentes de React.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Los archivos de test deben tener la extensión `.spec.js` y ubicarse en la carpeta `src/`.
+- La configuración de Karma se encuentra en el archivo `karma.conf.js`.
+- Para ejecutar los tests, usa el comando:
 
-### Code Splitting
+  ```bash
+  npm run test:ui
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Los resultados de los tests y la cobertura se generan en la carpeta `coverage/`.
 
-### Analyzing the Bundle Size
+Puedes agregar nuevos tests para tus componentes siguiendo el formato de Jasmine y asegurarte de que la aplicación se mantenga confiable y funcional.
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Licencia
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este proyecto es solo para fines educativos.
