@@ -33,12 +33,27 @@
         text-shadow: 0 0 8px #00ffcc;
     }
 
-    .card-gamer {
-        background: #121212;
-        border: 1px solid #00ffcc44;
-        border-radius: 12px;
-        transition: 0.3s;
-    }
+.card-gamer {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Ajuste para modo claro */
+[data-bs-theme="light"] .card-gamer {
+  background-color: #f8f9fa; /* fondo claro */
+  color: #212529; /* texto oscuro */
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste para modo oscuro */
+[data-bs-theme="dark"] .card-gamer {
+  background-color: #1a1a1a; /* fondo oscuro */
+  color: #e0e0e0; /* texto claro */
+}
+
 
     .card-gamer:hover {
         transform: translateY(-5px);
