@@ -8,10 +8,10 @@ import { useState } from "react";
 // Importa imágenes
 import kumara from "../assets/img/productos/kumara.png";
 import logitech from "../assets/img/productos/logitech.jpg";
-import razer from "../assets/img/productos/razer-firefly-V2-Pro-mousepad.png";
+import razer from "../assets/img/productos/razer-firefly-V2-Pro-mousepad.jpg";
 import kingston from "../assets/img/productos/fury_ram.jpg";
 import victus from "../assets/img/productos/victus.jpg";
-import tuf16 from "../assets/img/productos/tufF16.png";
+import tuf16 from "../assets/img/productos/tuf.png";
 import predator from "../assets/img/productos/predator.jpg";
 import katana17 from "../assets/img/productos/katana17.png";
 import uno from "../assets/img/productos/uno.jpg";
