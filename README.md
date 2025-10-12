@@ -77,7 +77,10 @@ Los reportes de cobertura se generan en la carpeta coverage/.
 
 🎯 Misión y visión
 
-Misión: Proporcionar productos de alta calidad para gamers en Chile, ofreciendo una experiencia de compra única y personalizada, con foco en la satisfacción del cliente.
+  ```bash
+  npm run test:ui
+  npx karma start
+  ```
 
 Visión: Ser la tienda online líder en productos para gamers en Chile, reconocida por su innovación, servicio al cliente excepcional y un programa de fidelización que premie la lealtad de los clientes.
 
