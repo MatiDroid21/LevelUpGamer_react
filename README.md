@@ -1,82 +1,89 @@
-# LevelUpGamer 🎮
+LevelUpGamer 🎮
 
-Proyecto para la asignatura **Desarrollo Fullstack 2**  
+Proyecto desarrollado para la asignatura Desarrollo Fullstack 2
 Duoc UC - Sede San Joaquín
 
----
+📝 Descripción
 
-## Descripción
+LevelUpGamer es una tienda online hecha en React que ofrece a los gamers chilenos una experiencia de compra completa. Permite explorar, buscar y adquirir productos como periféricos, componentes, laptops y videojuegos.
 
-LevelUpGamer es una tienda online desarrollada en **React** que permite a los usuarios explorar, buscar y comprar productos gamer como periféricos, componentes, laptops y juegos. El proyecto incluye funcionalidades de carrito de compras, búsqueda de productos, visualización de detalles y descuentos especiales para usuarios Duoc UC.
+El proyecto incorpora funcionalidades clave de e-commerce: carrito persistente, descuentos especiales para usuarios Duoc UC y visualización de detalles de productos mediante modales.
 
----
+🚀 Características
 
-## Características
+🖱️ Catálogo completo: Productos gamer con imágenes, precios y descripciones.
 
-- 🖱️ Catálogo de productos gamer con imágenes y descripciones
-- 🔎 Barra de búsqueda en tiempo real
-- 🛒 Carrito de compras persistente (localStorage)
-- 💳 Cálculo de descuentos para usuarios con correo @duocuc.cl
-- 📦 Modal de detalles de producto
-- 📱 Diseño responsivo y moderno
-- 🧪 Tests automáticos con Karma y Jasmine
+🔎 Búsqueda en tiempo real: Filtrado dinámico por nombre, descripción o código.
 
----
+🛒 Carrito persistente: Guardado en localStorage para mantener la sesión.
 
-## Instalación
+💳 Descuentos especiales: Aplicables a usuarios con correo @duocuc.cl.
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/tuusuario/LevelUpGamer_React.git
-   cd LevelUpGamer_React
-   ```
+📦 Modal de detalles: Visualiza información completa de cada producto.
 
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
+📱 Diseño responsivo: Compatible con móviles, tablets y escritorio.
 
-3. Inicia la aplicación:
-   ```bash
-   npm start
-   ```
+🧪 Tests automáticos: Cobertura de componentes con Karma y Jasmine.
 
----
+📦 Instalación
 
-## Scripts útiles
+Clona el repositorio:
 
-- `npm start` — Ejecuta la app en modo desarrollo
-- `npm run build` — Compila la app para producción
-- `npm run test:ui` — Ejecuta los tests de interfaz con Karma
+git clone https://github.com/tuusuario/LevelUpGamer_React.git
+cd LevelUpGamer_React
 
----
 
-## Estructura del proyecto
+Instala dependencias:
 
-```
+npm install
+
+
+Ejecuta la aplicación:
+
+npm start
+
+
+Abre tu navegador en http://localhost:3000
+
+🛠️ Scripts útiles
+Comando	Descripción
+npm start	Ejecuta la app en modo desarrollo
+npm run build	Compila la app para producción
+npm run test:ui	Ejecuta los tests de interfaz con Karma y Jasmine
+📂 Estructura del proyecto
 src/
-  ├── assets/           # Imágenes y recursos
+  ├── assets/           # Imágenes y recursos estáticos
   ├── components/       # Componentes reutilizables (Footer, Carrito, TarjetaProducto, etc.)
-  ├── pages/            # Vistas principales (Home, Productos)
+  ├── data/             # Datos estáticos (productos.json, imágenes, etc.)
+  ├── pages/            # Vistas principales (Home, Productos, Checkout, Login)
   ├── styles/           # Archivos CSS
-  └── App.js            # Componente principal
-```
-## Karma
+  └── App.js            # Componente principal y rutas
 
-El proyecto utiliza **Karma** como test runner junto con **Jasmine** para ejecutar pruebas automáticas de los componentes de React.
+🧪 Tests con Karma y Jasmine
 
-- Los archivos de test deben tener la extensión `.spec.js` y ubicarse en la carpeta `src/`.
-- La configuración de Karma se encuentra en el archivo `karma.conf.js`.
-- Para ejecutar los tests, usa el comando:
+Los archivos de test deben terminar en .spec.js y ubicarse dentro de src/.
+
+La configuración de Karma está en karma.conf.js.
+
+Para ejecutar los tests:
+
+npm run test:ui
+o
+npx karma start  
+
+Los reportes de cobertura se generan en la carpeta coverage/.
+
+⚠️ Se recomienda correr los tests regularmente para garantizar la estabilidad del proyecto.
+
+🎯 Misión y visión
 
   ```bash
   npm run test:ui
   npx karma start
   ```
 
-- Los resultados de los tests y la cobertura se generan en la carpeta `coverage/`.
----
+Visión: Ser la tienda online líder en productos para gamers en Chile, reconocida por su innovación, servicio al cliente excepcional y un programa de fidelización que premie la lealtad de los clientes.
 
-## Licencia
+⚖️ Licencia
 
-Este proyecto es solo para fines educativos.
+Este proyecto es solo para fines educativos. 

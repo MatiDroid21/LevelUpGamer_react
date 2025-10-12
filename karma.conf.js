@@ -32,9 +32,9 @@ module.exports = function (config) {
             use: ['style-loader', 'css-loader']
           },
           {
-            test: /\.(png|jpe?g|gif|webp|svg)$/i,
-            type: 'asset/inline'
-          }
+  test: /\.(png|jpe?g|gif|webp|svg)$/i,
+  use: 'null-loader'
+}
         ]
       },
       resolve: {
