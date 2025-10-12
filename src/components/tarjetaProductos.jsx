@@ -35,6 +35,8 @@ export default function ProductCard({ producto, agregarAlCarrito }) {
                 <button className="btn btn-success" onClick={() => { agregarAlCarrito(producto); setModalOpen(false); }}>
                   Comprar
                 </button>
+                
+
               </div>
             </div>
           </div>

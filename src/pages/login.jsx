@@ -32,7 +32,7 @@ export default function LoginComponent() {
       // Guardar usuario en localStorage
       localStorage.setItem("usuario", correo);
       
-      // 🔔 Disparar evento para notificar al HeaderComponent
+      // Disparar evento para notificar al HeaderComponent
       window.dispatchEvent(new Event("usuarioCambiado"));
 
       Swal.fire({

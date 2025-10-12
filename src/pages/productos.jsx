@@ -1,9 +1,10 @@
+import { useState } from "react";
 import FooterComponent from "../components/FooterComponent";
 import ProductCard from "../components/tarjetaProductos";
 import Cart from "../components/Carrito";
 import SearchBar from "../components/BarraBusquedaProductos";
+import productosData from "../data/productos.json";
 import "../styles/cardsIndex.css";
-import { useState } from "react";
 
 // Importa imágenes
 import kumara from "../assets/img/productos/kumara.png";
@@ -15,30 +16,67 @@ import tuf16 from "../assets/img/productos/tuf.png";
 import predator from "../assets/img/productos/predator.jpg";
 import katana17 from "../assets/img/productos/katana17.png";
 import uno from "../assets/img/productos/uno.jpg";
+import silla1 from "../assets/img/productos/silla1.jpg";
+import silla2 from "../assets/img/productos/silla2.jpg";
+import silla3 from "../assets/img/productos/silla3.png";
+import silla4 from "../assets/img/productos/silla4.jpg";
+import nintendosw2 from "../assets/img/productos/nintendosw2.jpg";
+import ps5 from "../assets/img/productos/ps5.jpg";
+import rogally from "../assets/img/productos/rogally.jpg";
+import xboxseriesx from "../assets/img/productos/xboxseriesx.png";
+import monopoly from "../assets/img/productos/monopoly.jpg";
+import preguntados from "../assets/img/productos/preguntados.jpg";
+import clue from "../assets/img/productos/clue.jpg";
+
+// Mapea nombres del JSON a imágenes reales
+const imagenes = {
+  "kumara.png": kumara,
+  "logitech.jpg": logitech,
+  "razer-firefly-V2-Pro-mousepad.jpg": razer,
+  "fury_ram.jpg": kingston,
+  "victus.jpg": victus,
+  "tuf.png": tuf16,
+  "predator.jpg": predator,
+  "katana17.png": katana17,
+  "uno.jpg": uno,
+  "silla1.jpg": silla1,
+  "silla2.jpg": silla2,
+  "silla3.png": silla3,
+  "silla4.jpg": silla4,
+  "nintendosw2.jpg": nintendosw2,
+  "ps5.jpg": ps5,
+  "rogally.jpg": rogally,
+  "xboxseriesx.png": xboxseriesx,
+  "monopoly.jpg": monopoly,
+  "preguntados.jpg": preguntados,
+  "clue.jpg": clue
+};
 
 export default function Productos() {
   const [searchTerm, setSearchTerm] = useState("");
+
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
-  const productos = [
-    { id: 1, nombre: "Teclado Redragon Kumara", codigo: "RK001", descripcion: "Teclado mecánico retroiluminado ideal para gamers.", precio: 44990, imagen: kumara },
-    { id: 2, nombre: "Mouse Logitech G502 Hero", codigo: "LG502", descripcion: "Sensor HERO 25K, rendimiento y precisión.", precio: 62900, imagen: logitech },
-    { id: 3, nombre: "MousePad Razer RGB", codigo: "RZ043", descripcion: "Superficie suave con iluminación Chroma.", precio: 15900, imagen: razer },
-    { id: 4, nombre: "RAM Kingston Fury 16GB DDR4", codigo: "KF093", descripcion: "Rendimiento extremo para gaming o trabajo.", precio: 35500, imagen: kingston },
-    { id: 5, nombre: "Laptop HP Victus 16", codigo: "HPV16", descripcion: "Rendimiento potente con procesador AMD Ryzen 7.", precio: 899990, imagen: victus },
-    { id: 6, nombre: "Laptop Asus TUF Gaming F16", codigo: "ASFT16", descripcion: "Rendimiento robusto con gráficos NVIDIA GeForce.", precio: 799990, imagen: tuf16 },
-    { id: 7, nombre: "Laptop Acer Predator Helios 300", codigo: "ACPH300", descripcion: "Rendimiento de alta gama para gamers exigentes.", precio: 1199990, imagen: predator },
-    { id: 8, nombre: "Laptop MSI Katana GF76", codigo: "MSKGF76", descripcion: "Rendimiento sólido con procesador Intel Core i7.", precio: 999990, imagen: katana17 },
-    { id: 9, nombre: "Juego de cartas UNO", codigo: "UNO123", descripcion: "El clásico juego de cartas para toda la familia.", precio: 8990, imagen: uno },
-  ];
+  // Asigna imagen real a cada producto
+  const productos = productosData.map((p) => ({
+    ...p,
+    imagen: imagenes[p.imagen] || ""
+  }));
 
-  const filteredProducts = productos.filter(
-    (p) =>
-      p.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.descripcion.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.codigo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filtra productos según búsqueda
+  const filteredProducts = productos.filter((p) => {
+    const nombre = p.nombre?.toLowerCase() || "";
+    const descripcion = p.descripcion?.toLowerCase() || "";
+    const codigo = p.codigo?.toLowerCase() || "";
 
+    return (
+      nombre.includes(searchTerm.toLowerCase()) ||
+      descripcion.includes(searchTerm.toLowerCase()) ||
+      codigo.includes(searchTerm.toLowerCase())
+    );
+  });
+
+  // Carrito
   const [carrito, setCarrito] = useState(() => {
     const guardado = localStorage.getItem("carrito");
     return guardado ? JSON.parse(guardado) : [];
@@ -47,7 +85,9 @@ export default function Productos() {
   const agregarAlCarrito = (producto) => {
     const existe = carrito.find((item) => item.id === producto.id);
     const nuevo = existe
-      ? carrito.map((i) => (i.id === producto.id ? { ...i, cantidad: i.cantidad + 1 } : i))
+      ? carrito.map((i) =>
+          i.id === producto.id ? { ...i, cantidad: i.cantidad + 1 } : i
+        )
       : [...carrito, { ...producto, cantidad: 1 }];
 
     setCarrito(nuevo);
@@ -73,13 +113,17 @@ export default function Productos() {
         <h1 className="mb-4">Nuestros Productos</h1>
 
         <div className="row">
-          {filteredProducts.map((producto) => (
-            <ProductCard
-              key={producto.id}
-              producto={producto}
-              agregarAlCarrito={agregarAlCarrito}
-            />
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((producto) => (
+              <ProductCard
+                key={producto.id}
+                producto={producto}
+                agregarAlCarrito={agregarAlCarrito}
+              />
+            ))
+          ) : (
+            <p>No se encontraron productos.</p>
+          )}
         </div>
 
         <Cart
@@ -92,9 +136,7 @@ export default function Productos() {
         />
       </div>
 
-      {/* 👇 Ahora el footer está fuera del container */}
       <FooterComponent />
     </>
   );
-
 }

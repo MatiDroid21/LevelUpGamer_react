@@ -90,6 +90,10 @@ export default function HeaderComponent() {
             <li className="nav-item">
               <Link className="nav-link" to="/quienes-somos">Quiénes Somos</Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/noticias">Noticias</Link>
+            </li>
           </ul>
 
           {/* Reloj */}
