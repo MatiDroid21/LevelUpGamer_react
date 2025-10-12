@@ -71,6 +71,7 @@ El proyecto utiliza **Karma** como test runner junto con **Jasmine** para ejecut
 
   ```bash
   npm run test:ui
+  npx karma start
   ```
 
 - Los resultados de los tests y la cobertura se generan en la carpeta `coverage/`.
