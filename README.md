@@ -77,7 +77,12 @@ Los reportes de cobertura se generan en la carpeta coverage/.
 
 🎯 Misión y visión
 
+
+importante: verificar versiones en caso de que no sea posible levantar el proyecto en tu maquina
+de manera correcta.
+
   ```bash
+  npm install react@latest react-dom@latest
   npm run test:ui
   npx karma start
   ```
