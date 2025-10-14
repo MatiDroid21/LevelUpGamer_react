@@ -11,15 +11,12 @@ export default function BlogNoticias() {
                 <div className="row">
                     <div className="col-md-6 mb-4">
                         <div className="card">
-                            <img src="https://cms-assets.unrealengine.com/cm6l5gfpm05kr07my04cqgy2x/cmgi0znlc16xv07o6fsnmie3h" className="card-img-top" alt="Fortnite Temporada 5" />
+                            <img src="https://cdn2.unrealengine.com/fortnite-island-creator-rules-1900x600-a829c3da1d8f.jpg?resize=1&w=1920" className="card-img-top" alt="Fortnite Temporada 5" />
                             <div className="card-body">
-                                <h5 className="card-title">Fortnite Temporada 5: Novedades y cambios</h5>
-                                <p className="card-text">El miedo adopta un nuevo rostro. Conoced a la madre de espinas, Doja Cat, que convertirá Battle Royale en su propio reino encantado y desatará el caos con unos personajes bestiales: desde Jason hasta Miércoles Addams, pasando por Scooby-Doo y Ghost Face, os aguardan caras conocidas.
-
-                                    ¡Adentraos en la pesadilla hasta el 1 de noviembre!
-
-                                    Contemplad cómo el terror llega a Recarga el 10 de octubre, día en el que la nueva Isla Pesadilla hará su debut.</p>
-                                <a href="https://www.fortnite.com/news/fortnitemares-2025-a-terrifying-new-cast-of-horror-icons?lang=es-ES" className="btn btn-primary">Leer más</a>
+                                <h5 className="card-title">Solo puede quedar una persona en Fortnite: Delulu</h5>
+                                <p className="card-text">Haced nuevos amigos... o acabad con ellos.
+                                    En el modo sin construcción Fortnite: Delulu, 80 jugadores comenzarán en solitario en la isla de Battle Royale. La partida termina cuando solo quede uno. ¿Habéis avistado un enemigo cerca? ¡Formad equipo para tener más opciones! El tamaño máximo del escuadrón es de cuatro. Si abandonáis un escuadrón, podréis combatir de inmediato contra vuestros antiguos compañeros. A fin de cuentas, ¡solo puede ganar uno de los cuatro!.</p>
+                                <a href="https://www.fortnite.com/news/look-out-for-number-1-in-fortnite-delulu?lang=es-ES" className="btn btn-primary">Leer más</a>
                             </div>
                         </div>
                     </div>

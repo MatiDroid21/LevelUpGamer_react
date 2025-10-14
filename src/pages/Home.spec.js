@@ -6,7 +6,7 @@ describe("Home Component", () => {
   it("renderiza el título de productos destacados", () => {
     render(<Home />);
     const titulo = screen.getByText(/🎮 Productos Destacados/i);
-    expect(titulo).not.toBeNull(); // ✅ Jasmine básico
+    expect(titulo).not.toBeNull();
   });
 
   it("muestra al menos un producto", () => {

@@ -86,4 +86,4 @@ Visión: Ser la tienda online líder en productos para gamers en Chile, reconoci
 
 ⚖️ Licencia
 
-Este proyecto es solo para fines educativos. 
+Este proyecto es solo para fines educativos. Los estaré vigilando >:D
