@@ -67,8 +67,6 @@ La configuración de Karma está en karma.conf.js.
 
 Para ejecutar los tests:
 
-npm run test:ui
-o
 npx karma start  
 
 Los reportes de cobertura se generan en la carpeta coverage/.
