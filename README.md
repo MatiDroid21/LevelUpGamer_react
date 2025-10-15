@@ -29,7 +29,7 @@ El proyecto incorpora funcionalidades clave de e-commerce: carrito persistente, 
 
 Clona el repositorio:
 
-git clone https://github.com/tuusuario/LevelUpGamer_React.git
+git clone https://github.com/MatiDroid21/LevelUpGamer_react.git
 cd LevelUpGamer_React
 
 
