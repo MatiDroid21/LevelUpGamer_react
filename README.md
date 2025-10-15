@@ -81,7 +81,6 @@ de manera correcta.
 
   ```bash
   npm install react@latest react-dom@latest
-  npm run test:ui
   npx karma start
   ```
 
