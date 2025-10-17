@@ -11,7 +11,7 @@ export default function ProductCard({ producto, agregarAlCarrito }) {
           <h5>{producto.nombre}</h5>
           <p>{producto.descripcion}</p>
           <p><strong>Precio:</strong> ${producto.precio.toLocaleString("es-CL")}</p>
-          <button className="btn btn-secondary mt-auto" onClick={() => setModalOpen(true)}>
+          <button className="btn btn-primary mt-auto" onClick={() => setModalOpen(true)}>
             Ver detalles
           </button>
         </div>

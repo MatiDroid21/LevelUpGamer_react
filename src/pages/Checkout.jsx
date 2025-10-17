@@ -36,7 +36,7 @@ export default function Checkout() {
             html: `
                 <p>Gracias por tu compra 🛍️</p>
                 <p><strong>Total pagado:</strong> $${(descuento > 0 ? totalConDescuento : total).toLocaleString("es-CL")}</p>
-                ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado ✅)</p>" : ""}
+                ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
             `,
             icon: "success",
             confirmButtonText: "Aceptar"

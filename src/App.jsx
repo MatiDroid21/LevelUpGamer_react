@@ -8,6 +8,7 @@ import RegisterComponent from './pages/register';
 import QuienesSomos from './pages/quienes';
 import Noticias from './pages/blogNoticias';
 import Checkout from './pages/Checkout';
+import Contacto from './pages/Contacto';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -25,6 +26,7 @@ function App() {
       <Route path='/quienes-somos' element={<QuienesSomos />} />  
       <Route path='/propyState' element={<PropyStates />} />
       <Route path='/noticias' element={<Noticias />} /> 
+      <Route path='/contacto' element={<Contacto />} />
 
     </Routes>
     </>

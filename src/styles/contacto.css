@@ -1,0 +1,76 @@
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #141E30, #243B55);
+  color: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
+  text-shadow: 0 0 10px #00634f;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* FORM GAMER */
+.form-gamer {
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid;
+  box-shadow: 0 0 20px;
+  transition: 0.3s;
+}
+
+/* Oscuro */
+[data-bs-theme="dark"] .form-gamer {
+  background: #121212;
+  border-color: #00ffcc55;
+  color: #00ffcc;
+  box-shadow: 0 0 20px #00ffcc33;
+}
+
+[data-bs-theme="dark"] .form-gamer label {
+  color: #00ffcc;
+}
+
+[data-bs-theme="dark"] .form-gamer .form-control,
+[data-bs-theme="dark"] .form-gamer .form-select,
+[data-bs-theme="dark"] .form-gamer textarea {
+  background: #1e1e1e;
+  color: #00ffcc;
+  border: 1px solid #00ffcc55;
+}
+
+/* Claro */
+[data-bs-theme="light"] .form-gamer {
+  background: #f8f9fa;
+  border-color: #ced4da;
+  color: #212529;
+  box-shadow: 0 0 10px #00000022;
+}
+
+[data-bs-theme="light"] .form-gamer label {
+  color: #212529;
+}
+
+[data-bs-theme="light"] .form-gamer .form-control,
+[data-bs-theme="light"] .form-gamer .form-select,
+[data-bs-theme="light"] .form-gamer textarea {
+  background: #fff;
+  color: #212529;
+  border: 1px solid #ced4da;
+}
+
+/* BOTON */
+.btn-gamer {
+  background: #00ffcc;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-gamer:hover {
+  background: #01895b;
+  box-shadow: 0 0 15px #00ffaa88;
+}

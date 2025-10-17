@@ -5,87 +5,100 @@ import Swal from "sweetalert2";
 import LoginComponent from "./login";
 
 describe("LoginComponent", () => {
+  beforeEach(() => {
+    // Limpiar localStorage antes de cada test
+    localStorage.clear();
 
-    beforeEach(() => {
-        localStorage.clear();
-        // Mock de Swal.fire
-        spyOn(Swal, "fire").and.returnValue(Promise.resolve());
+    // Si el spy ya existía, lo restauramos
+    if (Swal.fire.and && Swal.fire.and.identity) {
+      Swal.fire.and.stub(); // resetea cualquier spy anterior
+    }
+
+    // Creamos el spy y devolvemos una promesa para evitar undefined.then
+    Swal.fire = jasmine.createSpy("Swal.fire").and.returnValue(Promise.resolve());
+  });
+
+  it("muestra el título 'Iniciar sesión'", () => {
+    render(
+      <MemoryRouter>
+        <LoginComponent />
+      </MemoryRouter>
+    );
+    const titulo = screen.getByRole("heading", { name: /Iniciar sesión/i });
+    expect(titulo).toBeTruthy();
+  });
+
+  it("muestra error si no se ingresan correo ni contraseña", async () => {
+    render(
+      <MemoryRouter>
+        <LoginComponent />
+      </MemoryRouter>
+    );
+
+    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
+
+    await act(async () => {
+      fireEvent.click(boton);
     });
 
-    it("muestra el título 'Iniciar sesión'", () => {
-        render(
-            <MemoryRouter>
-                <LoginComponent />
-            </MemoryRouter>
-        );
-        const titulo = screen.getByRole("heading", { name: /Iniciar sesión/i });
-        expect(titulo).toBeTruthy();
+    expect(Swal.fire).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        title: "Error!",
+        text: "Debes ingresar tu correo y contraseña",
+        icon: "error",
+      })
+    );
+  });
+
+  it("muestra error si falta el correo", async () => {
+    render(
+      <MemoryRouter>
+        <LoginComponent />
+      </MemoryRouter>
+    );
+
+    const passInput = screen.getByLabelText(/Contraseña/i);
+    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
+
+    await act(async () => {
+      fireEvent.change(passInput, { target: { value: "1234" } });
+      fireEvent.click(boton);
     });
 
-    it("muestra error si no se ingresan correo ni contraseña", async () => {
-        render(
-            <MemoryRouter>
-                <LoginComponent />
-            </MemoryRouter>
-        );
-        const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
-        
-        await act(async () => {
-            fireEvent.click(boton);
-        });
+    expect(Swal.fire).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        title: "Error!",
+        text: "Debes ingresar tu correo",
+        icon: "error",
+      })
+    );
+  });
 
-        expect(Swal.fire).toHaveBeenCalledWith(jasmine.objectContaining({
-            title: "Error!",
-            text: "Debes ingresar tu correo y contraseña",
-            icon: "error",
-        }));
+  it("guarda el usuario en localStorage si los campos son válidos", async () => {
+    render(
+      <MemoryRouter>
+        <LoginComponent />
+      </MemoryRouter>
+    );
+
+    const email = screen.getByLabelText(/Correo electrónico/i);
+    const pass = screen.getByLabelText(/Contraseña/i);
+    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
+
+    await act(async () => {
+      fireEvent.change(email, { target: { value: "test@correo.com" } });
+      fireEvent.change(pass, { target: { value: "1234" } });
+      fireEvent.click(boton);
     });
 
-    it("muestra error si falta el correo", async () => {
-        render(
-            <MemoryRouter>
-                <LoginComponent />
-            </MemoryRouter>
-        );
+    expect(Swal.fire).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        title: "Bienvenido!",
+        text: "test@correo.com",
+        icon: "success",
+      })
+    );
 
-        const passInput = screen.getByLabelText(/Contraseña/i);
-        const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
-
-        await act(async () => {
-            fireEvent.change(passInput, { target: { value: "1234" } });
-            fireEvent.click(boton);
-        });
-
-        expect(Swal.fire).toHaveBeenCalledWith(jasmine.objectContaining({
-            title: "Error!",
-            text: "Debes ingresar tu correo",
-            icon: "error",
-        }));
-    });
-
-    it("guarda el usuario en localStorage si los campos son válidos", async () => {
-        render(
-            <MemoryRouter>
-                <LoginComponent />
-            </MemoryRouter>
-        );
-
-        const email = screen.getByLabelText(/Correo electrónico/i);
-        const pass = screen.getByLabelText(/Contraseña/i);
-        const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
-
-        await act(async () => {
-            fireEvent.change(email, { target: { value: "test@correo.com" } });
-            fireEvent.change(pass, { target: { value: "1234" } });
-            fireEvent.click(boton);
-        });
-
-        expect(Swal.fire).toHaveBeenCalledWith(jasmine.objectContaining({
-            title: "Bienvenido!",
-            text: "test@correo.com",
-            icon: "success",
-        }));
-
-        expect(localStorage.getItem("usuario")).toBe("test@correo.com");
-    });
+    expect(localStorage.getItem("usuario")).toBe("test@correo.com");
+  });
 });
