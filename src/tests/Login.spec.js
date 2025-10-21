@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import LoginComponent from "./login";
+import LoginComponent from "../pages/login";
 
 describe("LoginComponent", () => {
   beforeEach(() => {

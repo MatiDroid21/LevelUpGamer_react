@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Home from "./home";
+import Home from "../pages/home";
 
 describe("Home Component", () => {
   it("renderiza el título de productos destacados", () => {

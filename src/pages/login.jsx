@@ -16,35 +16,41 @@ export default function LoginComponent() {
         text: "Debes ingresar tu correo y contraseña",
         icon: "error",
       });
-    } else if (!correo) {
+      return;
+    }
+
+    if (!correo) {
       Swal.fire({
         title: "Error!",
         text: "Debes ingresar tu correo",
         icon: "error",
       });
-    } else if (!contrasena) {
+      return;
+    }
+
+    if (!contrasena) {
       Swal.fire({
         title: "Error!",
         text: "Debes ingresar tu contraseña",
         icon: "error",
       });
-    } else {
-      // Guardar usuario en localStorage
-      localStorage.setItem("usuario", correo);
-      
-      // Disparar evento para notificar al HeaderComponent
-      window.dispatchEvent(new Event("usuarioCambiado"));
-
-      Swal.fire({
-        title: "Bienvenido!",
-        text: correo,
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      }).then(() => {
-        navigate("/"); // redirige a Home
-      });
+      return;
     }
+
+    // Guardar usuario en localStorage
+    localStorage.setItem("usuario", correo);
+    // Notificar cambio al HeaderComponent
+    window.dispatchEvent(new Event("usuarioCambiado"));
+
+    Swal.fire({
+      title: "Bienvenido!",
+      text: correo,
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/"); // redirige a Home
+    });
   };
 
   return (
@@ -55,8 +61,8 @@ export default function LoginComponent() {
           <div className="mb-3 text-start">
             <label htmlFor="email" className="form-label">Correo electrónico</label>
             <input
-              type="email"
               id="email"
+              type="email"
               className="form-control"
               placeholder="correo@ejemplo.com"
               value={correo}
@@ -67,8 +73,8 @@ export default function LoginComponent() {
           <div className="mb-3 text-start">
             <label htmlFor="password" className="form-label">Contraseña</label>
             <input
-              type="password"
               id="password"
+              type="password"
               className="form-control"
               placeholder="********"
               value={contrasena}
