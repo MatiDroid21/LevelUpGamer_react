@@ -1,46 +1,23 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginComponent() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const validarLogin = (event) => {
+  const validarLogin = async (event) => {
     event.preventDefault();
 
-    if (!correo && !contrasena) {
-      Swal.fire({
-        title: "Error!",
-        text: "Debes ingresar tu correo y contraseña",
-        icon: "error",
-      });
+    const res = await login(correo, contrasena);
+
+    if (!res.ok) {
+      Swal.fire({ title: "Error", text: res.message, icon: "error" });
       return;
     }
-
-    if (!correo) {
-      Swal.fire({
-        title: "Error!",
-        text: "Debes ingresar tu correo",
-        icon: "error",
-      });
-      return;
-    }
-
-    if (!contrasena) {
-      Swal.fire({
-        title: "Error!",
-        text: "Debes ingresar tu contraseña",
-        icon: "error",
-      });
-      return;
-    }
-
-    // Guardar usuario en localStorage
-    localStorage.setItem("usuario", correo);
-    // Notificar cambio al HeaderComponent
-    window.dispatchEvent(new Event("usuarioCambiado"));
 
     Swal.fire({
       title: "Bienvenido!",
@@ -48,9 +25,7 @@ export default function LoginComponent() {
       icon: "success",
       timer: 1500,
       showConfirmButton: false,
-    }).then(() => {
-      navigate("/"); // redirige a Home
-    });
+    }).then(() => navigate("/"));
   };
 
   return (
@@ -82,11 +57,15 @@ export default function LoginComponent() {
             />
           </div>
 
-          <button type="submit" className="btn btn-success w-100">Iniciar sesión</button>
+          <button type="submit" className="btn btn-success w-100">
+            Iniciar sesión
+          </button>
 
           <p className="mt-3 text-center">
             ¿No tienes una cuenta?{" "}
-            <Link to="/register" className="text-decoration-none">Regístrate aquí</Link>
+            <Link to="/register" className="text-decoration-none">
+              Regístrate aquí
+            </Link>
           </p>
         </form>
       </div>

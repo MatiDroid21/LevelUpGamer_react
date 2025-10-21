@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import "../styles/checkout.css"; // Opcional: para estilos extra
+import "../styles/checkout.css";
 
 export default function Checkout() {
     const [carrito, setCarrito] = useState([]);
     const [descuento, setDescuento] = useState(0);
     const [total, setTotal] = useState(0);
     const [totalConDescuento, setTotalConDescuento] = useState(0);
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
+        // Leer carrito
         const guardado = JSON.parse(localStorage.getItem("carrito")) || [];
         setCarrito(guardado);
 
+        // Calcular descuento DUOCUC
         const usuario = localStorage.getItem("usuario");
         const desc = usuario?.endsWith("@duocuc.cl") ? 0.2 : 0;
         setDescuento(desc);
@@ -19,6 +22,18 @@ export default function Checkout() {
         const t = guardado.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
         setTotal(t);
         setTotalConDescuento(t - t * desc);
+
+        // Detectar modo oscuro actual
+        const temaGuardado = localStorage.getItem("theme");
+        setDarkMode(temaGuardado === "dark");
+
+        // Escuchar cambios de tema
+        const observer = new MutationObserver(() => {
+            setDarkMode(document.body.classList.contains("bg-dark"));
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+        return () => observer.disconnect();
     }, []);
 
     const finalizarCompra = () => {
@@ -26,7 +41,9 @@ export default function Checkout() {
             Swal.fire({
                 title: "Carrito vacío",
                 text: "No hay productos para pagar.",
-                icon: "info"
+                icon: "info",
+                background: darkMode ? "#2c2c2c" : "#fff",
+                color: darkMode ? "#eee" : "#000",
             });
             return;
         }
@@ -34,12 +51,16 @@ export default function Checkout() {
         Swal.fire({
             title: "¡Compra realizada!",
             html: `
-                <p>Gracias por tu compra 🛍️</p>
-                <p><strong>Total pagado:</strong> $${(descuento > 0 ? totalConDescuento : total).toLocaleString("es-CL")}</p>
-                ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
-            `,
+        <p>Gracias por tu compra 🛍️</p>
+        <p><strong>Total pagado:</strong> $${(
+                    descuento > 0 ? totalConDescuento : total
+                ).toLocaleString("es-CL")}</p>
+        ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
+      `,
             icon: "success",
-            confirmButtonText: "Aceptar"
+            confirmButtonText: "Aceptar",
+            background: darkMode ? "#2c2c2c" : "#fff",
+            color: darkMode ? "#eee" : "#000",
         }).then(() => {
             localStorage.removeItem("carrito");
             setCarrito([]);
@@ -50,7 +71,7 @@ export default function Checkout() {
 
     if (carrito.length === 0) {
         return (
-            <div className="container my-5">
+            <div className={`container my-5 ${darkMode ? "text-light" : "text-dark"}`}>
                 <h1>Carrito vacío</h1>
                 <p>No hay productos para pagar.</p>
             </div>
@@ -58,24 +79,35 @@ export default function Checkout() {
     }
 
     return (
-        <div className="container my-5">
+        <div className={`container my-5 ${darkMode ? "text-light" : "text-dark"}`}>
             <h1>Detalle de la compra 🛒</h1>
 
             <ul className="list-group mb-3">
                 {carrito.map((item) => (
-                    <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+                    <li
+                        key={item.id}
+                        className={`list-group-item d-flex justify-content-between align-items-center ${darkMode ? "bg-dark text-light border-secondary" : ""
+                            }`}
+                    >
                         <div className="d-flex align-items-center">
-                            <img 
-                                src={item.imagen} 
-                                alt={item.nombre} 
-                                style={{ width: "60px", height: "60px", objectFit: "cover", marginRight: "15px", borderRadius: "5px" }} 
+                            <img
+                                src={item.imagen}
+                                alt={item.nombre}
+                                style={{
+                                    width: "60px",
+                                    height: "60px",
+                                    objectFit: "cover",
+                                    marginRight: "15px",
+                                    borderRadius: "5px",
+                                }}
                             />
                             <div>
-                                <span>{item.nombre}</span><br />
-                                <small className="text-muted">Cantidad: {item.cantidad}</small>
+                                <span>{item.nombre}</span>
+                                <br />
+                                <small className={`${darkMode ? "text-light" : "text-dark"}`}>Cantidad: {item.cantidad}</small>
                             </div>
                         </div>
-                        <span>${(item.precio * item.cantidad).toLocaleString("es-CL")}</span>
+                        <span className={`${darkMode ? "text-light" : "text-dark"}`}>${(item.precio * item.cantidad).toLocaleString("es-CL")}</span>
                     </li>
                 ))}
             </ul>
@@ -90,9 +122,6 @@ export default function Checkout() {
             </div>
 
             <div className="text-end">
-                {/* <button className="btn btn-success" onClick={finalizarCompra}>
-                    Finalizar compra
-                </button> */}
                 <button className="btn btn-success" onClick={finalizarCompra}>
                     Finalizar compra
                 </button>

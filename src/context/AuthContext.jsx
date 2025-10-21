@@ -13,21 +13,14 @@ export function AuthProvider({ children }) {
         else localStorage.removeItem("user");
     }, [user]);
 
-    // 🔐 login adaptado a tu sistema
     const login = async (correo, contrasena) => {
-        // Validaciones básicas (podés hacerlas también en el componente)
-        if (!correo || !contrasena) {
+        if (!correo || !contrasena)
             return { ok: false, message: "Debes ingresar correo y contraseña" };
-        }
 
-        // Validar dominio del correo
         const dominio = correo.split("@")[1];
-        if (dominio !== "gmail.com" && dominio !== "duocuc.cl") {
+        if (dominio !== "gmail.com" && dominio !== "duocuc.cl")
             return { ok: false, message: "El dominio del correo no es válido" };
-        }
 
-        // Simular autenticación exitosa (no es “admin” fijo)
-        // Si quisieras validar con una BD o API, aquí iría esa llamada
         const u = { correo };
         setUser(u);
         return { ok: true };
@@ -43,5 +36,6 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    return context;
 }

@@ -21,47 +21,59 @@
   transition: 0.3s;
 }
 
-/* Oscuro */
+/* OSCURO */
 [data-bs-theme="dark"] .form-gamer {
-  background: #121212;
-  border-color: #00ffcc55;
-  color: #00ffcc;
-  box-shadow: 0 0 20px #00ffcc33;
+  background: #121212 !important;
+  border-color: #00ffcc55 !important;
+  color: #00ffcc !important;
+  box-shadow: 0 0 20px #00ffcc33 !important;
 }
 
 [data-bs-theme="dark"] .form-gamer label {
-  color: #00ffcc;
+  color: #00ffcc !important;
 }
 
+/* 🔧 FIX select y textarea en modo oscuro */
 [data-bs-theme="dark"] .form-gamer .form-control,
 [data-bs-theme="dark"] .form-gamer .form-select,
 [data-bs-theme="dark"] .form-gamer textarea {
-  background: #1e1e1e;
-  color: #00ffcc;
-  border: 1px solid #00ffcc55;
+  background-color: #1e1e1e !important;
+  color: #00ffcc !important;
+  border: 1px solid #00ffcc55 !important;
 }
 
-/* Claro */
+[data-bs-theme="dark"] .form-gamer .form-select option {
+  background-color: #1e1e1e !important;
+  color: #00ffcc !important;
+}
+
+/* CLARO */
 [data-bs-theme="light"] .form-gamer {
-  background: #f8f9fa;
-  border-color: #ced4da;
-  color: #212529;
-  box-shadow: 0 0 10px #00000022;
+  background: #f8f9fa !important;
+  border-color: #ced4da !important;
+  color: #212529 !important;
+  box-shadow: 0 0 10px #00000022 !important;
 }
 
 [data-bs-theme="light"] .form-gamer label {
-  color: #212529;
+  color: #212529 !important;
 }
 
 [data-bs-theme="light"] .form-gamer .form-control,
 [data-bs-theme="light"] .form-gamer .form-select,
 [data-bs-theme="light"] .form-gamer textarea {
-  background: #fff;
-  color: #212529;
-  border: 1px solid #ced4da;
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border: 1px solid #ced4da !important;
 }
 
-/* BOTON */
+/* 🔧 FIX select option en modo claro */
+[data-bs-theme="light"] .form-gamer .form-select option {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
+
+/* BOTÓN */
 .btn-gamer {
   background: #00ffcc;
   border: none;

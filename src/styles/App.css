@@ -13,3 +13,10 @@ footer{
   height: 100vh; /* ocupa toda la pantalla */
   object-fit: cover; /* que no se deforme */
 }
+
+body.bg-dark {
+  transition: background-color 0.4s, color 0.4s;
+}
+.navbar {
+  transition: background-color 0.4s, color 0.4s;
+}

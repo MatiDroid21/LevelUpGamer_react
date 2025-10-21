@@ -14,7 +14,8 @@ export default function Contacto() {
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        const { id, value } = e.target;
+        setFormData((prev) => ({ ...prev, [id]: value }));
     };
 
     const handleSubmit = (e) => {
@@ -22,17 +23,18 @@ export default function Contacto() {
 
         const { nombre, email, tipoMensaje, mensaje } = formData;
 
-        // Validaciones
-        if (!nombre || !email || !tipoMensaje || !mensaje) {
+        // Validar campos vacíos
+        if (!nombre.trim() || !email.trim() || !tipoMensaje || !mensaje.trim()) {
             Swal.fire({
                 icon: "warning",
                 title: "Campos incompletos ⚠️",
                 text: "Por favor, completa todos los campos antes de enviar.",
+                confirmButtonColor: "#ffb703",
             });
             return;
         }
 
-        // Validación simple de email
+        // Validar formato de correo
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             Swal.fire({
@@ -64,55 +66,61 @@ export default function Contacto() {
     return (
         <>
             {/* HERO */}
-            <section className="hero">
-                <h1 className="fw-bold mb-3">📩 Contáctanos</h1>
-                <p>
-                    ¿Tienes dudas o necesitas ayuda? Escríbenos y nuestro equipo gamer
-                    responderá a la velocidad de la luz 🚀
-                </p>
+            <section className="hero text-center py-5">
+                <div className="container">
+                    <h1 className="fw-bold mb-3">📩 Contáctanos</h1>
+                    <p className="lead">
+                        ¿Tienes dudas o necesitas ayuda? Escríbenos y nuestro equipo gamer
+                        responderá a la velocidad de la luz 🚀
+                    </p>
+                </div>
             </section>
 
             {/* FORMULARIO */}
             <section className="container my-5">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
-                        <form
-                            onSubmit={handleSubmit}
-                            className="form-gamer"
-                            data-testid="contacto-form"
-                        >
+                        <form onSubmit={handleSubmit} className="form-gamer shadow-lg p-4 rounded">
+                            {/* Nombre */}
                             <div className="mb-3">
-                                <label htmlFor="nombre">👤 Nombre</label>
+                                <label htmlFor="nombre" className="form-label">
+                                    👤 Nombre
+                                </label>
                                 <input
                                     type="text"
-                                    className="form-control"
                                     id="nombre"
+                                    className="form-control"
+                                    placeholder="Tu nombre gamer"
                                     value={formData.nombre}
                                     onChange={handleChange}
-                                    placeholder="Tu nombre gamer"
                                 />
                             </div>
 
+                            {/* Correo */}
                             <div className="mb-3">
-                                <label htmlFor="email">📧 Correo electrónico</label>
+                                <label htmlFor="email" className="form-label">
+                                    📧 Correo electrónico
+                                </label>
                                 <input
                                     type="email"
-                                    className="form-control"
                                     id="email"
+                                    className="form-control"
+                                    placeholder="tuemail@ejemplo.com"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="tuemail@ejemplo.com"
                                 />
                             </div>
 
+                            {/* Tipo de mensaje */}
                             <div className="mb-3">
-                                <label htmlFor="tipoMensaje">📌 Tipo de mensaje</label>
+                                <label htmlFor="tipoMensaje" className="form-label">
+                                    📌 Tipo de mensaje
+                                </label>
                                 <select
-                                    className="form-select"
                                     id="tipoMensaje"
+                                    className="form-select"
                                     value={formData.tipoMensaje}
                                     onChange={handleChange}
-                                    required
                                 >
                                     <option value="">Selecciona una opción</option>
                                     <option value="Consulta">Consulta</option>
@@ -121,18 +129,22 @@ export default function Contacto() {
                                 </select>
                             </div>
 
+                            {/* Mensaje */}
                             <div className="mb-3">
-                                <label htmlFor="mensaje">💬 Mensaje</label>
+                                <label htmlFor="mensaje" className="form-label">
+                                    💬 Mensaje
+                                </label>
                                 <textarea
-                                    className="form-control"
                                     id="mensaje"
                                     rows="4"
+                                    className="form-control"
+                                    placeholder="Escribe tu mensaje aquí..."
                                     value={formData.mensaje}
                                     onChange={handleChange}
-                                    placeholder="Escribe tu mensaje aquí..."
                                 ></textarea>
                             </div>
 
+                            {/* Botón */}
                             <button type="submit" className="btn btn-gamer w-100 py-2 fw-bold">
                                 Enviar mensaje 🚀
                             </button>
