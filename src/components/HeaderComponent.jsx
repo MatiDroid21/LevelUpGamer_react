@@ -6,8 +6,9 @@ import logo from "../assets/img/LevelupGamer.png";
 export default function HeaderComponent() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+
   const [hora, setHora] = useState("");
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   // Actualizar hora cada segundo
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function HeaderComponent() {
     return () => clearInterval(intervalo);
   }, []);
 
-  // Aplicar tema (dark/light) con Bootstrap
+  // Aplicar tema con variables CSS y data-bs-theme
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
@@ -36,12 +37,12 @@ export default function HeaderComponent() {
     navigate("/");
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <nav
-      className={`navbar navbar-expand-lg shadow-sm border-bottom ${
-        theme === "dark" ? "navbar-dark bg-dark" : "navbar-light bg-body-tertiary"
-      }`}
-    >
+    <nav className="navbar navbar-expand-lg shadow-sm border-bottom">
       <div className="container-fluid">
         {/* Logo */}
         <Link className="navbar-brand d-flex align-items-center" to="/">
@@ -52,7 +53,7 @@ export default function HeaderComponent() {
             height="32"
             className="me-2"
           />
-          <span className="fw-bold text-gradient">LevelUp Gamer</span>
+          <span className="fw-bold text-gradient">LevelUpGamer</span>
         </Link>
 
         {/* Botón hamburguesa */}
@@ -72,9 +73,7 @@ export default function HeaderComponent() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li><Link className="nav-link" to="/">Home</Link></li>
-            {isAuthenticated && (
-              <li><Link className="nav-link" to="/productos">Productos</Link></li>
-            )}
+            {isAuthenticated && <li><Link className="nav-link" to="/productos">Productos</Link></li>}
             <li><Link className="nav-link" to="/noticias">Noticias</Link></li>
             <li><Link className="nav-link" to="/quienes-somos">Quiénes Somos</Link></li>
             <li><Link className="nav-link" to="/contacto">Contacto</Link></li>
@@ -83,22 +82,18 @@ export default function HeaderComponent() {
           {/* Reloj */}
           <span className="nav-link me-3 fw-semibold">{hora}</span>
 
-          {/* Botón tema */}
-          {/* <button
-            className={`btn btn-sm me-2 ${
-              theme === "dark" ? "btn-light" : "btn-dark"
-            }`}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          {/* Botón para togglear tema */}
+          <button
+            className={`btn btn-sm me-2 ${theme === "dark" ? "btn-light" : "btn-dark"}`}
+            onClick={toggleTheme}
           >
             {theme === "dark" ? "☀️ Claro" : "🌙 Oscuro"}
-          </button> */}
+          </button>
 
           {/* Usuario */}
           {isAuthenticated ? (
             <>
-              <span className="me-2 fw-bold text-success">
-                👤 {user.correo}
-              </span>
+              <span className="me-2 fw-bold text-success">👤 {user.correo}</span>
               <button
                 className="btn btn-outline-danger btn-sm"
                 onClick={handleLogout}

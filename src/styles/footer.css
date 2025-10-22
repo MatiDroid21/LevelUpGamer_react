@@ -1,7 +1,10 @@
 .footer {
   background: linear-gradient(180deg, #0e1411, #0a0d0b);
-  color: #d6ffd6;
   border-top: 2px solid #00ff99;
+}
+
+.footer-text{
+    color: #FFF;
 }
 
 .text-accent {

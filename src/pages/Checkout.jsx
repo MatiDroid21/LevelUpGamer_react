@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "../styles/checkout.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+    const navigate = useNavigate();
+
     const [carrito, setCarrito] = useState([]);
     const [descuento, setDescuento] = useState(0);
     const [total, setTotal] = useState(0);
@@ -10,15 +13,17 @@ export default function Checkout() {
     const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
-        // Leer carrito
+        // Leer carrito desde localStorage
         const guardado = JSON.parse(localStorage.getItem("carrito")) || [];
         setCarrito(guardado);
 
-        // Calcular descuento DUOCUC
-        const usuario = localStorage.getItem("usuario");
-        const desc = usuario?.endsWith("@duocuc.cl") ? 0.2 : 0;
+        // Leer usuario y calcular descuento DUOC UC
+        const storedUser = localStorage.getItem("user");
+        const correo = storedUser ? JSON.parse(storedUser).correo : "";
+        const desc = correo.toLowerCase().endsWith("@duocuc.cl") ? 0.2 : 0;
         setDescuento(desc);
 
+        // Calcular totales
         const t = guardado.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
         setTotal(t);
         setTotalConDescuento(t - t * desc);
@@ -51,21 +56,23 @@ export default function Checkout() {
         Swal.fire({
             title: "¡Compra realizada!",
             html: `
-        <p>Gracias por tu compra 🛍️</p>
-        <p><strong>Total pagado:</strong> $${(
-                    descuento > 0 ? totalConDescuento : total
-                ).toLocaleString("es-CL")}</p>
-        ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
-      `,
+                <p>Gracias por tu compra 🛍️</p>
+                <p><strong>Total pagado:</strong> $${(descuento > 0 ? totalConDescuento : total).toLocaleString("es-CL")}</p>
+                ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
+            `,
             icon: "success",
             confirmButtonText: "Aceptar",
             background: darkMode ? "#2c2c2c" : "#fff",
             color: darkMode ? "#eee" : "#000",
         }).then(() => {
+            // Limpiar carrito
             localStorage.removeItem("carrito");
             setCarrito([]);
             setTotal(0);
             setTotalConDescuento(0);
+
+            // Redirigir al home
+            navigate("/");
         });
     };
 
@@ -86,8 +93,9 @@ export default function Checkout() {
                 {carrito.map((item) => (
                     <li
                         key={item.id}
-                        className={`list-group-item d-flex justify-content-between align-items-center ${darkMode ? "bg-dark text-light border-secondary" : ""
-                            }`}
+                        className={`list-group-item d-flex justify-content-between align-items-center ${
+                            darkMode ? "bg-dark text-light border-secondary" : ""
+                        }`}
                     >
                         <div className="d-flex align-items-center">
                             <img
@@ -104,10 +112,14 @@ export default function Checkout() {
                             <div>
                                 <span>{item.nombre}</span>
                                 <br />
-                                <small className={`${darkMode ? "text-light" : "text-dark"}`}>Cantidad: {item.cantidad}</small>
+                                <small className={`${darkMode ? "text-light" : "text-dark"}`}>
+                                    Cantidad: {item.cantidad}
+                                </small>
                             </div>
                         </div>
-                        <span className={`${darkMode ? "text-light" : "text-dark"}`}>${(item.precio * item.cantidad).toLocaleString("es-CL")}</span>
+                        <span className={`${darkMode ? "text-light" : "text-dark"}`}>
+                            ${(item.precio * item.cantidad).toLocaleString("es-CL")}
+                        </span>
                     </li>
                 ))}
             </ul>

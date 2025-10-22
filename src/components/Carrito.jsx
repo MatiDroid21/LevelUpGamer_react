@@ -10,10 +10,9 @@ export default function Cart({ carrito, eliminarDelCarrito, total, descuento, to
     }
 
     navigate("/checkout", {
-      state: { carrito, total, totalConDescuento, descuento }
+      state: { carrito, total, totalConDescuento, descuento },
     });
   };
-
 
   return (
     <div className="mt-5">
@@ -24,10 +23,7 @@ export default function Cart({ carrito, eliminarDelCarrito, total, descuento, to
       ) : (
         <ul className="list-group">
           {carrito.map((item) => (
-            <li
-              key={item.id}
-              className="list-group-item d-flex justify-content-between align-items-center"
-            >
+            <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
               <div>
                 <strong>{item.nombre}</strong> x {item.cantidad}
               </div>

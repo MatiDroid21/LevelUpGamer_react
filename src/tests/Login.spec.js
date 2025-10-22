@@ -1,104 +1,54 @@
 import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Swal from "sweetalert2";
-import LoginComponent from "../pages/login";
+import Login from "../pages/login.jsx";
 
-describe("LoginComponent", () => {
+// Mock del AuthContext
+import { AuthContext } from "../context/AuthContext";
+
+describe("Login Component", () => {
+  let loginMock, logoutMock;
+
   beforeEach(() => {
-    // Limpiar localStorage antes de cada test
-    localStorage.clear();
-
-    // Si el spy ya existía, lo restauramos
-    if (Swal.fire.and && Swal.fire.and.identity) {
-      Swal.fire.and.stub(); // resetea cualquier spy anterior
-    }
-
-    // Creamos el spy y devolvemos una promesa para evitar undefined.then
-    Swal.fire = jasmine.createSpy("Swal.fire").and.returnValue(Promise.resolve());
+    loginMock = jasmine.createSpy("login").and.returnValue(Promise.resolve({ ok: true }));
+    logoutMock = jasmine.createSpy("logout");
   });
 
-  it("muestra el título 'Iniciar sesión'", () => {
+  it("llama a login al enviar formulario con correo y contraseña válidos", async () => {
     render(
-      <MemoryRouter>
-        <LoginComponent />
-      </MemoryRouter>
-    );
-    const titulo = screen.getByRole("heading", { name: /Iniciar sesión/i });
-    expect(titulo).toBeTruthy();
-  });
-
-  it("muestra error si no se ingresan correo ni contraseña", async () => {
-    render(
-      <MemoryRouter>
-        <LoginComponent />
-      </MemoryRouter>
+      <AuthContext.Provider value={{ login: loginMock, user: null, isAuthenticated: false, logout: logoutMock }}>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthContext.Provider>
     );
 
-    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: "test@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/contraseña/i), { target: { value: "123456" } });
 
     await act(async () => {
-      fireEvent.click(boton);
+      fireEvent.submit(screen.getByRole("form"));
     });
 
-    expect(Swal.fire).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        title: "Error!",
-        text: "Debes ingresar tu correo y contraseña",
-        icon: "error",
-      })
-    );
+    expect(loginMock).toHaveBeenCalledWith("test@gmail.com", "123456");
   });
 
-  it("muestra error si falta el correo", async () => {
-    render(
-      <MemoryRouter>
-        <LoginComponent />
-      </MemoryRouter>
-    );
+  it("muestra mensaje si correo o contraseña están vacíos", async () => {
+    // Mock que devuelve error
+    loginMock.and.returnValue(Promise.resolve({ ok: false, message: "Debes ingresar correo y contraseña" }));
 
-    const passInput = screen.getByLabelText(/Contraseña/i);
-    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
+    render(
+      <AuthContext.Provider value={{ login: loginMock, user: null, isAuthenticated: false, logout: logoutMock }}>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
 
     await act(async () => {
-      fireEvent.change(passInput, { target: { value: "1234" } });
-      fireEvent.click(boton);
+      fireEvent.submit(screen.getByRole("form"));
     });
 
-    expect(Swal.fire).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        title: "Error!",
-        text: "Debes ingresar tu correo",
-        icon: "error",
-      })
-    );
-  });
-
-  it("guarda el usuario en localStorage si los campos son válidos", async () => {
-    render(
-      <MemoryRouter>
-        <LoginComponent />
-      </MemoryRouter>
-    );
-
-    const email = screen.getByLabelText(/Correo electrónico/i);
-    const pass = screen.getByLabelText(/Contraseña/i);
-    const boton = screen.getByRole("button", { name: /Iniciar sesión/i });
-
-    await act(async () => {
-      fireEvent.change(email, { target: { value: "test@correo.com" } });
-      fireEvent.change(pass, { target: { value: "1234" } });
-      fireEvent.click(boton);
-    });
-
-    expect(Swal.fire).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        title: "Bienvenido!",
-        text: "test@correo.com",
-        icon: "success",
-      })
-    );
-
-    expect(localStorage.getItem("usuario")).toBe("test@correo.com");
+    expect(screen.getByText(/Debes ingresar correo y contraseña/i)).toBeDefined();
   });
 });

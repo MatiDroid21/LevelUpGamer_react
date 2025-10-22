@@ -1,33 +1,54 @@
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #ada4a4;
-            background-color: #453e3e;
-        }
+/* Tarjeta */
+.card {
+  background-color: var(--bg-card);
+  color: var(--text-card);
+  transition: background-color 0.4s, color 0.4s;
+}
 
-        .form-box {
-            border: 2px solid #1E90FF;
-            border-radius: 15px;
-            padding: 2rem;
-            max-width: 400px;
-            margin: auto;
-            margin-top: 10vh;
-        }
+/* Inputs */
+.form-control {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
 
-        .btn-gamer {
-            background: #1a8e05;
-            font-weight: bold;
-        }
+/* Botón */
+.btn-success {
+  background-color: var(--btn-success-bg);
+  color: var(--btn-success-text);
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-        .btn-gamer:hover {
-            background: #1E90FF;
-            color: #fff;
-        }
+.btn-success:hover {
+  background-color: var(--btn-success-hover-bg);
+}
 
-        a {
-            color: #1E90FF;
-            text-decoration: none;
-        }
+/* Tema claro */
+:root[data-bs-theme="light"] {
+  --bg-card: #fff;
+  --text-card: #212529;
 
-        a:hover {
-            color: #39FF14;
-        }
+  --input-bg: #fff;
+  --input-text: #212529;
+  --input-border: #ccc;
+
+  --btn-success-bg: #198754;
+  --btn-success-hover-bg: #157347;
+  --btn-success-text: #fff;
+}
+
+/* Tema oscuro */
+:root[data-bs-theme="dark"] {
+  --bg-card: #1e1e2f;
+  --text-card: #f8f9fa;
+
+  --input-bg: #2a2a3d;
+  --input-text: #f8f9fa;
+  --input-border: #444;
+
+  --btn-success-bg: #00d1b2;
+  --btn-success-hover-bg: #00b89c;
+  --btn-success-text: #fff;
+}

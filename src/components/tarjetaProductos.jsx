@@ -34,11 +34,8 @@ export default function ProductCard({ producto, agregarAlCarrito }) {
   return (
     <div className="col-md-4 mb-4">
       {/* Tarjeta */}
-      <div
-        className={`card h-100 shadow-sm ${
-          darkMode ? "bg-dark text-light border-light" : "bg-light text-dark"
-        }`}
-      >
+     <div className="card h-100 shadow-sm">
+
         <img
           src={producto.imagen}
           className="card-img-top img-container"
@@ -55,7 +52,7 @@ export default function ProductCard({ producto, agregarAlCarrito }) {
           <p><Precio valor={producto.precio} /></p>
           <button
             className={`btn mt-auto ${
-              darkMode ? "btn-outline-light" : "btn-primary"
+              darkMode ? "btn-primary" : "btn-primary"
             }`}
             onClick={() => setModalOpen(true)}
           >

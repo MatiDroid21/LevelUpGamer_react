@@ -4,7 +4,6 @@ import ProductCard from "../components/tarjetaProductos";
 import Cart from "../components/Carrito";
 import SearchBar from "../components/BarraBusquedaProductos";
 import productosData from "../data/productos.json";
-import "../styles/cardsIndex.css";
 
 // Importa imágenes
 import kumara from "../assets/img/productos/kumara.png";
@@ -100,9 +99,14 @@ export default function Productos() {
     localStorage.setItem("carrito", JSON.stringify(nuevo));
   };
 
+  // Calcula total y descuento DUOCUC correctamente
   const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  const usuario = localStorage.getItem("usuario");
-  const descuento = usuario?.endsWith("@duocuc.cl") ? 0.2 : 0;
+
+  // Leer usuario del localStorage y parsear JSON
+  const storedUser = localStorage.getItem("user");
+  const correo = storedUser ? JSON.parse(storedUser).correo : "";
+  const descuento = correo.toLowerCase().endsWith("@duocuc.cl") ? 0.2 : 0;
+
   const totalConDescuento = total - total * descuento;
 
   return (

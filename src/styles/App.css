@@ -1,22 +1,88 @@
-.main{
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ===========================
+   Variables de tema
+=========================== */
+:root[data-bs-theme="light"] {
+  --bg-page: #f8f9fa;
+  --text-main: #212529;
+
+  --bg-card: #fff;
+  --text-card: #212529;
+
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-color: #fff;
+
+  --btn-success-bg: #198754;
+  --btn-success-color: #fff;
+
+  --btn-secondary-bg: #6c757d;
+  --btn-secondary-color: #fff;
+
+  --input-bg: #fff;
+  --input-text: #212529;
+
+  --navbar-bg: #f8f9fa;
+  --navbar-text: #212529;
 }
 
-footer{
-    margin-top: auto;
+:root[data-bs-theme="dark"] {
+  --bg-page: #12121c;
+  --text-main: #f8f9fa;
+
+  --bg-card: #1e1e2f;
+  --text-card: #f8f9fa;
+
+  --btn-primary-bg: #00d1b2;
+  --btn-primary-color: #fff;
+
+  --btn-success-bg: #00d1b2;
+  --btn-success-color: #fff;
+
+  --btn-secondary-bg: #495057;
+  --btn-secondary-color: #fff;
+
+  --input-bg: #2a2a3d;
+  --input-text: #f8f9fa;
+
+  --navbar-bg: #1e1e2f;
+  --navbar-text: #f8f9fa;
 }
 
-.img-carousel {
-  height: 100vh; /* ocupa toda la pantalla */
-  object-fit: cover; /* que no se deforme */
+/* ===========================
+   Aplicar variables
+=========================== */
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
 }
 
-body.bg-dark {
+.card {
+  background-color: var(--bg-card) !important;
+  color: var(--text-card) !important;
   transition: background-color 0.4s, color 0.4s;
 }
-.navbar {
+
+.card h5, .card p, .card span, .card strong {
+  color: var(--text-card) !important;
+}
+
+input.form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid #444;
   transition: background-color 0.4s, color 0.4s;
+}
+
+button.btn-primary {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+}
+
+button.btn-success {
+  background-color: var(--btn-success-bg) !important;
+  color: var(--btn-success-color) !important;
+}
+
+button.btn-secondary {
+  background-color: var(--btn-secondary-bg) !important;
+  color: var(--btn-secondary-color) !important;
 }

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/login.css";
 
 export default function LoginComponent() {
   const [correo, setCorreo] = useState("");
@@ -11,14 +12,11 @@ export default function LoginComponent() {
 
   const validarLogin = async (event) => {
     event.preventDefault();
-
     const res = await login(correo, contrasena);
-
     if (!res.ok) {
       Swal.fire({ title: "Error", text: res.message, icon: "error" });
       return;
     }
-
     Swal.fire({
       title: "Bienvenido!",
       text: correo,
@@ -32,7 +30,8 @@ export default function LoginComponent() {
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card p-4 shadow" style={{ maxWidth: "400px", width: "100%" }}>
         <h2 className="text-center fw-bold mb-3">Iniciar sesión</h2>
-        <form onSubmit={validarLogin}>
+        {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+        <form role="form" onSubmit={validarLogin}>
           <div className="mb-3 text-start">
             <label htmlFor="email" className="form-label">Correo electrónico</label>
             <input
@@ -58,7 +57,7 @@ export default function LoginComponent() {
           </div>
 
           <button type="submit" className="btn btn-success w-100">
-            Iniciar sesión
+            Ingresar
           </button>
 
           <p className="mt-3 text-center">

@@ -10,7 +10,7 @@ export default function QuienesSomos() {
     }, []);
 
     return (
-        <div data-bs-theme="dark">
+        <div>
             {/* MAIN */}
             <main>
                 {/* HERO */}
