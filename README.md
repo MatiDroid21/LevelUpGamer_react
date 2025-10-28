@@ -89,3 +89,5 @@ Visión: Ser la tienda online líder en productos para gamers en Chile, reconoci
 ⚖️ Licencia
 
 Este proyecto es solo para fines educativos. Los estaré vigilando >:D
+
+# Proyecto realizado por Keiton Chavez H. y Matias Chavez G.
