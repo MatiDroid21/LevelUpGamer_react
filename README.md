@@ -73,9 +73,6 @@ Los reportes de cobertura se generan en la carpeta coverage/.
 
 ⚠️ Se recomienda correr los tests regularmente para garantizar la estabilidad del proyecto.
 
-🎯 Misión y visión
-
-
 importante: verificar versiones en caso de que no sea posible levantar el proyecto en tu maquina
 de manera correcta.
 
@@ -83,8 +80,6 @@ de manera correcta.
   npm install react@latest react-dom@latest
   npx karma start
   ```
-
-Visión: Ser la tienda online líder en productos para gamers en Chile, reconocida por su innovación, servicio al cliente excepcional y un programa de fidelización que premie la lealtad de los clientes.
 
 ⚖️ Licencia
 
