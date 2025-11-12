@@ -1,8 +1,27 @@
+/* ...existing code... */
 
 .form-box {
   max-width: 400px;
+  /* Forzar fondo y color del formulario (evita fondo blanco en modo claro) */
+  background-color: #0f1720 !important;
+  color: #ffffff !important;
+  border-radius: 0.5rem;
 }
 
+/* Etiquetas y texto dentro del cuadro */
+.form-box .form-label {
+  color: #ffffff !important;
+}
+
+/* Enlaces dentro del formulario */
+.form-box a {
+  color: #39FF14;
+}
+.form-box a:hover {
+  color: #32cc10;
+}
+
+/* Botón custom */
 .btn-gamer {
   background-color: #39FF14;
   color: #000;
@@ -10,25 +29,33 @@
   border: none;
   transition: 0.2s;
 }
-
 .btn-gamer:hover {
   background-color: #32cc10;
 }
 
-a {
-  color: #39FF14;
-}
-
-a:hover {
-  color: #32cc10;
-}
-
-input.form-control {
-  background-color: #1c1c1c;
-  color: white;
+/* Inputs: mantener fondo oscuro y texto blanco */
+.form-box input.form-control {
+  background-color: #1c1c1c !important;
+  color: #ffffff !important;
   border: 1px solid #39FF14;
 }
 
-input.form-control::placeholder {
+/* Placeholder visible en modo oscuro */
+.form-box input.form-control::placeholder {
   color: #aaa;
+}
+
+/* Iconos / input-group text */
+.form-box .input-group-text {
+  background: transparent;
+  border: none;
+  color: #39FF14;
+}
+
+/* Si Bootstrap añade bordes o fondos en modo claro, esto los neutraliza dentro del form-box */
+.form-box .form-control:focus,
+.form-box .form-control:active {
+  background-color: #1c1c1c !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
 }

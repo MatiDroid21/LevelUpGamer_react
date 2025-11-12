@@ -14,6 +14,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HeaderComponent from './components/HeaderComponent';
 import { AuthProvider } from './context/AuthContext';
+import Perfil from './pages/perfil';
+import CanjesPage from './pages/CanjesPage';
 function App() {
   return (
     <AuthProvider>
@@ -28,6 +30,8 @@ function App() {
         <Route path='/propyState' element={<PropyStates />} />
         <Route path='/noticias' element={<Noticias />} /> 
         <Route path='/contacto' element={<Contacto />} />
+        <Route path='/perfil' element={<Perfil />} />
+<Route path='/canjes' element={<CanjesPage />} />
       </Routes>
     </AuthProvider>
   );
