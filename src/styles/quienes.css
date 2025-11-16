@@ -1,0 +1,98 @@
+/* ==========================
+   QUIÉNES SOMOS - ESTILOS
+   ========================== */
+
+/* Hero */
+.hero {
+    background: var(--bg-page);
+    color: var(--text-page);
+    padding: 5rem 2rem;
+    text-align: center;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #FFF;
+    transition: color 0.4s;
+    /* Opcional: sombra suave para resaltar */
+    text-shadow: 0 0 8px var(--btn-primary-bg)55;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    color: #FFF;
+}
+
+/* Secciones */
+.seccion {
+    padding: 4rem 2rem;
+    background-color: var(--bg-page);
+    color: var(--text-page);
+    transition: background-color 0.4s, color 0.4s;
+}
+
+.seccion h2 {
+    color: var(--btn-primary-bg);
+    font-weight: bold;
+    text-shadow: 0 0 8px var(--btn-primary-bg)55;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s;
+}
+
+/* Iconos */
+.icono {
+    font-size: 3rem;
+    color: var(--btn-primary-bg);
+    text-shadow: 0 0 8px var(--btn-primary-bg)55;
+    transition: color 0.4s;
+}
+
+/* Cards “Quiénes Somos” */
+.card-gamer {
+    background-color: var(--bg-card);
+    color: var(--text-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: background-color 0.4s, color 0.4s, box-shadow 0.3s, transform 0.3s;
+}
+
+.card-gamer:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--btn-primary-bg)55;
+}
+
+/* Footer */
+footer {
+    background-color: var(--bg-card);
+    color: var(--text-card);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid var(--btn-primary-bg)55;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+/* Texto dentro de cards y secciones */
+.card-gamer h2, .card-gamer p {
+    color: var(--text-card);
+    transition: color 0.4s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .seccion h2 {
+        font-size: 1.5rem;
+    }
+}

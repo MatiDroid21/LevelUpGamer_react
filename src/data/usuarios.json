@@ -1,0 +1,12 @@
+[
+  {
+    "correo": "admin@gmail.com",
+    "contrasena": "1234",
+    "nombre": "Administrador"
+  },
+  {
+    "correo": "mateo@duocuc.cl",
+    "contrasena": "abcd",
+    "nombre": "Mateo Droid"
+  }
+]

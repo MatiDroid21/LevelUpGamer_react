@@ -1,0 +1,54 @@
+/* Tarjeta */
+.card {
+  background-color: var(--bg-card);
+  color: var(--text-card);
+  transition: background-color 0.4s, color 0.4s;
+}
+
+/* Inputs */
+.form-control {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+/* Botón */
+.btn-success {
+  background-color: var(--btn-success-bg);
+  color: var(--btn-success-text);
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-success:hover {
+  background-color: var(--btn-success-hover-bg);
+}
+
+/* Tema claro */
+:root[data-bs-theme="light"] {
+  --bg-card: #fff;
+  --text-card: #212529;
+
+  --input-bg: #fff;
+  --input-text: #212529;
+  --input-border: #ccc;
+
+  --btn-success-bg: #198754;
+  --btn-success-hover-bg: #157347;
+  --btn-success-text: #fff;
+}
+
+/* Tema oscuro */
+:root[data-bs-theme="dark"] {
+  --bg-card: #1e1e2f;
+  --text-card: #f8f9fa;
+
+  --input-bg: #2a2a3d;
+  --input-text: #f8f9fa;
+  --input-border: #444;
+
+  --btn-success-bg: #00d1b2;
+  --btn-success-hover-bg: #00b89c;
+  --btn-success-text: #fff;
+}

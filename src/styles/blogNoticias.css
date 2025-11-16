@@ -1,0 +1,40 @@
+/* Estilos base para cards y texto */
+.blog-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card img {
+  object-fit: cover;
+  height: 250px;
+}
+
+/* Texto de las cards */
+.blog-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: color 0.3s;
+}
+
+/* Modo claro: texto negro */
+html[data-bs-theme="light"] .blog-card p {
+  color: #000;
+}
+
+/* Modo oscuro: texto color gamer */
+html[data-bs-theme="dark"] .blog-card p {
+  color: #00ffcc; /* el clásico verde/teal gamer */
+}
+
+/* Botones */
+.blog-card .btn {
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.blog-card .btn:hover {
+  filter: brightness(1.1);
+}
