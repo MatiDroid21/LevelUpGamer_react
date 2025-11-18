@@ -10,7 +10,6 @@ export default function HeaderComponent() {
   const [hora, setHora] = useState("");
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
-  // Actualizar hora cada segundo
   useEffect(() => {
     const actualizarHora = () => {
       const ahora = new Date();
@@ -26,7 +25,6 @@ export default function HeaderComponent() {
     return () => clearInterval(intervalo);
   }, []);
 
-  // Aplicar tema con variables CSS y data-bs-theme
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
@@ -55,7 +53,6 @@ export default function HeaderComponent() {
           />
           <span className="fw-bold text-gradient">LevelUpGamer</span>
         </Link>
-
         {/* Botón hamburguesa */}
         <button
           className="navbar-toggler"
@@ -68,21 +65,29 @@ export default function HeaderComponent() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         {/* Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li><Link className="nav-link" to="/">Home</Link></li>
-            {isAuthenticated && <li><Link className="nav-link" to="/productos">Productos</Link></li>}
+            <li>
+              <Link className="nav-link" to="/">Home</Link>
+            </li>
+            {isAuthenticated && (
+              <li>
+                <Link className="nav-link" to="/productos">Productos</Link>
+              </li>
+            )}
             <li><Link className="nav-link" to="/noticias">Noticias</Link></li>
             <li><Link className="nav-link" to="/quienes-somos">Quiénes Somos</Link></li>
             <li><Link className="nav-link" to="/contacto">Contacto</Link></li>
             <li><Link className="nav-link" to="/perfil">Perfil</Link></li>
+            {/* Panel administración solo para admin */}
+            {isAuthenticated && user?.rolNombre?.toUpperCase() === "ADMIN" && (
+              <li>
+                <Link className="nav-link" to="/admin">Panel de Administración</Link>
+              </li>
+            )}
           </ul>
-
-          {/* Reloj */}
           <span className="nav-link me-3 fw-semibold">{hora}</span>
-
           {/* Botón para togglear tema */}
           <button
             className={`btn btn-sm me-2 ${theme === "dark" ? "btn-light" : "btn-dark"}`}
@@ -90,11 +95,11 @@ export default function HeaderComponent() {
           >
             {theme === "dark" ? "☀️ Claro" : "🌙 Oscuro"}
           </button>
-
-          {/* Usuario */}
           {isAuthenticated ? (
             <>
-              <span className="me-2 fw-bold text-success">👤 {user.correo}</span>
+              <span className="me-2 fw-bold text-success">
+                👤 {user?.correo || "Usuario"}
+              </span>
               <button
                 className="btn btn-outline-danger btn-sm"
                 onClick={handleLogout}

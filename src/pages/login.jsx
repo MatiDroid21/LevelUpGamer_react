@@ -1,4 +1,3 @@
-// src/pages/login.jsx
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +19,7 @@ export default function LoginComponent() {
     }
     Swal.fire({
       title: "Bienvenido!",
-      text: `Hola ${res.user.nombre || res.user.email}`, // muestra nombre o email
+      text: `Hola ${res.user?.nombre || res.user?.email || "Usuario"}`,
       icon: "success",
       timer: 1500,
       showConfirmButton: false,
@@ -43,7 +42,6 @@ export default function LoginComponent() {
               onChange={(e) => setCorreo(e.target.value)}
             />
           </div>
-
           <div className="mb-3 text-start">
             <label htmlFor="password" className="form-label">Contraseña</label>
             <input
@@ -55,11 +53,9 @@ export default function LoginComponent() {
               onChange={(e) => setContrasena(e.target.value)}
             />
           </div>
-
           <button type="submit" className="btn btn-success w-100">
             Ingresar
           </button>
-
           <p className="mt-3 text-center">
             ¿No tienes una cuenta?{" "}
             <Link to="/register" className="text-decoration-none">

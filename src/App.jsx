@@ -9,12 +9,16 @@ import QuienesSomos from './pages/quienes';
 import Noticias from './pages/blogNoticias';
 import Checkout from './pages/Checkout';
 import Contacto from './pages/Contacto';
-import Perfil from './pages/perfil'
+import Perfil from './pages/perfil';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HeaderComponent from './components/HeaderComponent';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminProductos from './pages/AdminProductos';
+import ProductoForm from './pages/ProductoForm';
 
 function App() {
   return (
@@ -31,6 +35,31 @@ function App() {
         <Route path='/noticias' element={<Noticias />} />
         <Route path='/contacto' element={<Contacto />} />
         <Route path='/perfil' element={<Perfil />} />
+
+        <Route path="/admin" element={
+          <ProtectedAdminRoute>
+            <AdminDashboard />
+          </ProtectedAdminRoute>
+        } />
+
+        {/* Admin Productos */}
+        <Route path="/admin/productos" element={
+          <ProtectedAdminRoute>
+            <AdminProductos />
+          </ProtectedAdminRoute>
+        } />
+
+        <Route path="/admin/productos/nuevo" element={
+          <ProtectedAdminRoute>
+            <ProductoForm />
+          </ProtectedAdminRoute>
+        } />
+
+        <Route path="/admin/productos/editar/:id" element={
+          <ProtectedAdminRoute>
+            <ProductoForm />
+          </ProtectedAdminRoute>
+        } />
       </Routes>
     </AuthProvider>
   );

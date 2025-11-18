@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
@@ -10,9 +9,23 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsAuthenticated(true);
+    if (
+      storedUser &&
+      storedUser !== "undefined" &&
+      storedUser !== "null" &&
+      storedUser.trim() !== ""
+    ) {
+      try {
+        setUser(JSON.parse(storedUser));
+        setIsAuthenticated(true);
+      } catch (error) {
+        localStorage.removeItem("user");
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setUser(null);
+      setIsAuthenticated(false);
     }
   }, []);
 
@@ -25,18 +38,23 @@ export function AuthProvider({ children }) {
           headers: { "x-api-key": "lvlupgamer1306" },
         }
       );
-      const userData = response.data;
-      setUser(userData);
-      setIsAuthenticated(true);
-      localStorage.setItem("user", JSON.stringify(userData));
-      return { ok: true, user: userData };
+      console.log("Respuesta completa del backend:", response.data);
+
+      const userData = response.data; // Corregido: quitar .data
+
+      if (userData && typeof userData === "object") {
+        setUser(userData);
+        setIsAuthenticated(true);
+        localStorage.setItem("user", JSON.stringify(userData));
+        return { ok: true, user: userData };
+      } else {
+        return { ok: false, message: response.data?.message || "Credenciales incorrectas" };
+      }
     } catch (error) {
       setUser(null);
       setIsAuthenticated(false);
-      let msg = error.response?.data;
-      if (typeof msg === "object") {
-        msg = msg.message || JSON.stringify(msg);
-      }
+      localStorage.removeItem("user");
+      let msg = error.response?.data?.message || error.response?.data || error.message;
       return { ok: false, message: msg || "Error al intentar iniciar sesión" };
     }
   };
