@@ -49,6 +49,7 @@ export default function AdminProductos() {
       <Link to="/admin/productos/nuevo" className="btn btn-primary mb-3">
         Agregar Producto
       </Link>
+      {/* revisar api productos para add producto */}
 
       <div className="table-responsive">
         <table className="table table-striped table-bordered table-hover align-middle">
