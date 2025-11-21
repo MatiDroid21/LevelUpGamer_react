@@ -8,14 +8,14 @@ export default function Perfil() {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
   const [editMode, setEditMode] = useState(false);
-
-  // CAMBIAR 'correo' POR 'email' EN TODO EL FORMULARIO Y LÓGICA
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
     direccion: "",
     telefono: "",
   });
+  const [nuevaFoto, setNuevaFoto] = useState(null);
+  const [fotoBase64, setFotoBase64] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,6 +46,23 @@ export default function Perfil() {
           telefono: response.data.telefono || "",
         });
         localStorage.setItem("user", JSON.stringify(response.data));
+
+        // Cargar la foto en base64
+        const fotoResponse = await axios.get(
+          `http://localhost:8080/api/usuarios/${response.data.idUsuario}/foto`,
+          {
+            headers: { "x-api-key": "lvlupgamer1306" },
+            responseType: "arraybuffer",
+          }
+        );
+        const base64 = btoa(
+          new Uint8Array(fotoResponse.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+        const contentType = fotoResponse.headers["content-type"];
+        setFotoBase64(`data:${contentType};base64,${base64}`);
       } catch (error) {
         setUsuario(userLocal);
         setFormData({
@@ -76,7 +93,12 @@ export default function Perfil() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSaveChanges = async () => {
+  const handleFotoChange = (e) => {
+    setNuevaFoto(e.target.files[0]);
+  };
+
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
     if (!formData.nombre.trim() || !formData.email.trim()) {
       Swal.fire({
         icon: "error",
@@ -87,7 +109,7 @@ export default function Perfil() {
       return;
     }
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:8080/api/usuarios/${usuario.idUsuario}`,
         {
           ...usuario,
@@ -100,14 +122,60 @@ export default function Perfil() {
           headers: { "x-api-key": "lvlupgamer1306" },
         }
       );
-      setUsuario(response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      setEditMode(false);
+
+      if (nuevaFoto) {
+        const formImage = new FormData();
+        formImage.append("foto", nuevaFoto);
+
+        await axios.patch(
+          `http://localhost:8080/api/usuarios/${usuario.idUsuario}/foto`,
+          formImage,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "x-api-key": "lvlupgamer1306",
+            },
+          }
+        );
+
+        // Recargar la foto luego de actualizar
+        const fotoResponse = await axios.get(
+          `http://localhost:8080/api/usuarios/${usuario.idUsuario}/foto`,
+          {
+            headers: { "x-api-key": "lvlupgamer1306" },
+            responseType: "arraybuffer",
+          }
+        );
+        const base64 = btoa(
+          new Uint8Array(fotoResponse.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+        const contentType = fotoResponse.headers["content-type"];
+        setFotoBase64(`data:${contentType};base64,${base64}`);
+      }
+
       Swal.fire({
         icon: "success",
         title: "¡Perfil actualizado!",
         confirmButtonColor: "#2ecc71",
       });
+
+      const refreshed = await axios.get(
+        `http://localhost:8080/api/usuarios/${usuario.email}`,
+        { headers: { "x-api-key": "lvlupgamer1306" } }
+      );
+      setUsuario(refreshed.data);
+      setFormData({
+        nombre: refreshed.data.nombre || "",
+        email: refreshed.data.email || "",
+        direccion: refreshed.data.direccion || "",
+        telefono: refreshed.data.telefono || "",
+      });
+      setNuevaFoto(null);
+      setEditMode(false);
+      localStorage.setItem("user", JSON.stringify(refreshed.data));
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -131,15 +199,22 @@ export default function Perfil() {
             <div className="card shadow-lg border-0 profile-card">
               <div className="card-body text-center">
                 <div className="avatar-container mb-3">
-                  <i
-                    className="bi bi-person-circle"
-                    style={{ fontSize: "5rem", color: nivelInfo.color }}
-                  ></i>
+                  {usuario && (
+                    <img
+                      src={fotoBase64 || '/default-avatar.png'}
+                      alt="Foto de perfil"
+                      style={{
+                        width: "150px",
+                        height: "150px",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
                 </div>
                 <h3 className="fw-bold">{usuario.nombre}</h3>
                 <p className="text-muted">{usuario.email}</p>
 
-                {/* Nivel y Puntos */}
                 <div
                   className="nivel-badge my-3 p-3 rounded"
                   style={{
@@ -155,7 +230,6 @@ export default function Perfil() {
                   </p>
                 </div>
 
-                {/* Barra de Progreso */}
                 <div className="mt-3">
                   <p className="small mb-1">Progreso al siguiente nivel</p>
                   <div className="progress" style={{ height: "20px" }}>
@@ -171,7 +245,6 @@ export default function Perfil() {
                   </p>
                 </div>
 
-                {/* Código de Referido */}
                 <div className="mt-4 p-3 bg-dark text-white rounded">
                   <p className="small mb-1">Tu código de referido:</p>
                   <h5 className="mb-0 text-success">
@@ -197,6 +270,7 @@ export default function Perfil() {
               </div>
             </div>
           </div>
+
           {/* Panel de Información y Edición */}
           <div className="col-lg-8">
             <div className="card shadow-lg border-0">
@@ -205,10 +279,7 @@ export default function Perfil() {
                   <i className="bi bi-gear-fill"></i> Mi Información
                 </h4>
                 {!editMode && (
-                  <button
-                    className="btn btn-outline-light btn-sm"
-                    onClick={() => setEditMode(true)}
-                  >
+                  <button className="btn btn-outline-light btn-sm" onClick={() => setEditMode(true)}>
                     <i className="bi bi-pencil-fill"></i> Editar
                   </button>
                 )}
@@ -239,58 +310,71 @@ export default function Perfil() {
                   </>
                 ) : (
                   <>
-                    <div className="row mb-3">
-                      <div className="col-md-6">
-                        <label className="form-label fw-bold">Nombre completo</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="nombre"
-                          value={formData.nombre}
-                          onChange={handleChange}
-                        />
+                    <form>
+                      <div className="row mb-3">
+                        <div className="col-md-6">
+                          <label className="form-label fw-bold">Nombre completo</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label fw-bold">Correo electrónico</label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
-                      <div className="col-md-6">
-                        <label className="form-label fw-bold">Correo electrónico</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                        />
+                      <div className="row mb-3">
+                        <div className="col-md-6">
+                          <label className="form-label fw-bold">Dirección</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="direccion"
+                            value={formData.direccion}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label fw-bold">Teléfono</label>
+                          <input
+                            type="tel"
+                            className="form-control"
+                            name="telefono"
+                            value={formData.telefono}
+                            onChange={handleChange}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="row mb-3">
-                      <div className="col-md-6">
-                        <label className="form-label fw-bold">Dirección</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="direccion"
-                          value={formData.direccion}
-                          onChange={handleChange}
-                        />
+                      <div className="row mb-3">
+                        <div className="col-md-12">
+                          <label className="form-label fw-bold">Cambiar foto de perfil</label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="form-control"
+                            onChange={handleFotoChange}
+                          />
+                        </div>
                       </div>
-                      <div className="col-md-6">
-                        <label className="form-label fw-bold">Teléfono</label>
-                        <input
-                          type="tel"
-                          className="form-control"
-                          name="telefono"
-                          value={formData.telefono}
-                          onChange={handleChange}
-                        />
+                      <div className="d-flex gap-2">
+                        <button className="btn btn-success" onClick={handleSaveChanges}>
+                          <i className="bi bi-check-circle"></i> Guardar cambios
+                        </button>
+                        <button className="btn btn-secondary" onClick={() => setEditMode(false)}>
+                          <i className="bi bi-x-circle"></i> Cancelar
+                        </button>
                       </div>
-                    </div>
-                    <div className="d-flex gap-2">
-                      <button className="btn btn-success" onClick={handleSaveChanges}>
-                        <i className="bi bi-check-circle"></i> Guardar cambios
-                      </button>
-                      <button className="btn btn-secondary" onClick={() => setEditMode(false)}>
-                        <i className="bi bi-x-circle"></i> Cancelar
-                      </button>
-                    </div>
+                    </form>
                   </>
                 )}
               </div>

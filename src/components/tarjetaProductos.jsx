@@ -123,3 +123,4 @@ export default function ProductCard({ producto, agregarAlCarrito }) {
     </div>
   );
 }
+

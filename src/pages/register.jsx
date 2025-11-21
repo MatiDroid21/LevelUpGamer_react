@@ -63,6 +63,7 @@ export default function RegisterComponent() {
     formData.append("foto", foto);
 
     try {
+      //
       const response = await axios.post(
         "http://localhost:8080/api/usuarios/registro",
         formData,

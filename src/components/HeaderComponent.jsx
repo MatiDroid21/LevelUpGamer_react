@@ -98,7 +98,7 @@ export default function HeaderComponent() {
           {isAuthenticated ? (
             <>
               <span className="me-2 fw-bold text-success">
-                👤 {user?.correo || "Usuario"}
+                👤 {user?.nombre || "Usuario"}
               </span>
               <button
                 className="btn btn-outline-danger btn-sm"
