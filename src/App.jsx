@@ -19,6 +19,7 @@ import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminProductos from './pages/AdminProductos';
 import ProductoForm from './pages/ProductoForm';
+import HistorialPedidos from './pages/HistorialPedidos'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path='/noticias' element={<Noticias />} />
         <Route path='/contacto' element={<Contacto />} />
         <Route path='/perfil' element={<Perfil />} />
+        <Route path="/historial" element={<HistorialPedidos />} />
 
         <Route path="/admin" element={
           <ProtectedAdminRoute>

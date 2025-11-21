@@ -13,6 +13,10 @@ export default function Checkout() {
   const [totalConDescuento, setTotalConDescuento] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
 
+  // NUEVO: estados para retiro y pago
+  const [metodoRetiro, setMetodoRetiro] = useState("retiro"); // retiro/envío
+  const [metodoPago, setMetodoPago] = useState("transferencia"); // transferencia/efectivo
+
   useEffect(() => {
     // Leer carrito desde localStorage
     const guardado = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -24,7 +28,7 @@ export default function Checkout() {
     const desc = correo.toLowerCase().endsWith("@duocuc.cl") ? 0.2 : 0;
     setDescuento(desc);
 
-    // Calcular totales (cuida que precio y cantidad sean números)
+    // Calcular totales
     const t = guardado.reduce(
       (acc, item) =>
         acc +
@@ -71,8 +75,10 @@ export default function Checkout() {
       idUsuario,
       total: descuento > 0 ? totalConDescuento : total,
       direccion,
+      metodoRetiro,   // Nuevo campo
+      metodoPago,     // Nuevo campo
       detalles: carrito.map((item) => ({
-        idProducto: item.idProducto ?? item.id, // corregido aquí también
+        idProducto: item.idProducto ?? item.id,
         cantidad: item.cantidad,
         precioUnitario: item.precio,
       })),
@@ -89,6 +95,8 @@ export default function Checkout() {
           html: `
             <p>Gracias por tu compra 🛍️</p>
             <p><strong>Total pagado:</strong> $${pedido.total.toLocaleString("es-CL")}</p>
+            <p><strong>Método de retiro:</strong> ${metodoRetiro === "retiro" ? "Retiro en tienda" : "Envío a domicilio"}</p>
+            <p><strong>Método de pago:</strong> ${metodoPago === "transferencia" ? "Transferencia bancaria" : "Efectivo al retirar"}</p>
             ${descuento > 0 ? "<p class='text-success'>(Descuento DUOCUC aplicado)</p>" : ""}
           `,
           icon: "success",
@@ -130,10 +138,28 @@ export default function Checkout() {
     <div className={`container my-5 ${darkMode ? "text-light" : "text-dark"}`}>
       <h1>Detalle de la compra 🛒</h1>
 
+      {/* Nuevo: Métodos de retiro y pago */}
+      <div className="row g-4 mb-3">
+        <div className="col-md-6">
+          <label className="form-label">Método de retiro</label>
+          <select className="form-select" value={metodoRetiro} onChange={e => setMetodoRetiro(e.target.value)}>
+            <option value="retiro">Retiro en tienda</option>
+            <option value="envio">Envío a domicilio</option>
+          </select>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label">Método de pago</label>
+          <select className="form-select" value={metodoPago} onChange={e => setMetodoPago(e.target.value)}>
+            <option value="transferencia">Transferencia bancaria</option>
+            <option value="efectivo">Efectivo al retirar</option>
+          </select>
+        </div>
+      </div>
+
       <ul className="list-group mb-3">
         {carrito.map((item) => (
           <li
-            key={item.idProducto ?? item.id} // <-- CORREGIDO AQUÍ
+            key={item.idProducto ?? item.id}
             className={`list-group-item d-flex justify-content-between align-items-center ${
               darkMode ? "bg-dark text-light border-secondary" : ""
             }`}

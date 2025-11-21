@@ -34,9 +34,7 @@ export default function Perfil() {
       try {
         const response = await axios.get(
           `http://localhost:8080/api/usuarios/${userLocal.email}`,
-          {
-            headers: { "x-api-key": "lvlupgamer1306" },
-          }
+          { headers: { "x-api-key": "lvlupgamer1306" } }
         );
         setUsuario(response.data);
         setFormData({
@@ -46,8 +44,6 @@ export default function Perfil() {
           telefono: response.data.telefono || "",
         });
         localStorage.setItem("user", JSON.stringify(response.data));
-
-        // Cargar la foto en base64
         const fotoResponse = await axios.get(
           `http://localhost:8080/api/usuarios/${response.data.idUsuario}/foto`,
           {
@@ -118,15 +114,11 @@ export default function Perfil() {
           direccion: formData.direccion,
           telefono: formData.telefono,
         },
-        {
-          headers: { "x-api-key": "lvlupgamer1306" },
-        }
+        { headers: { "x-api-key": "lvlupgamer1306" } }
       );
-
       if (nuevaFoto) {
         const formImage = new FormData();
         formImage.append("foto", nuevaFoto);
-
         await axios.patch(
           `http://localhost:8080/api/usuarios/${usuario.idUsuario}/foto`,
           formImage,
@@ -137,8 +129,6 @@ export default function Perfil() {
             },
           }
         );
-
-        // Recargar la foto luego de actualizar
         const fotoResponse = await axios.get(
           `http://localhost:8080/api/usuarios/${usuario.idUsuario}/foto`,
           {
@@ -155,13 +145,11 @@ export default function Perfil() {
         const contentType = fotoResponse.headers["content-type"];
         setFotoBase64(`data:${contentType};base64,${base64}`);
       }
-
       Swal.fire({
         icon: "success",
         title: "¡Perfil actualizado!",
         confirmButtonColor: "#2ecc71",
       });
-
       const refreshed = await axios.get(
         `http://localhost:8080/api/usuarios/${usuario.email}`,
         { headers: { "x-api-key": "lvlupgamer1306" } }
@@ -214,13 +202,9 @@ export default function Perfil() {
                 </div>
                 <h3 className="fw-bold">{usuario.nombre}</h3>
                 <p className="text-muted">{usuario.email}</p>
-
                 <div
                   className="nivel-badge my-3 p-3 rounded"
-                  style={{
-                    backgroundColor: nivelInfo.color + "30",
-                    border: `2px solid ${nivelInfo.color}`,
-                  }}
+                  style={{ backgroundColor: nivelInfo.color + "30", border: `2px solid ${nivelInfo.color}` }}
                 >
                   <h4 className="mb-1" style={{ color: nivelInfo.color }}>
                     <i className="bi bi-trophy-fill"></i> {nivelInfo.nivel}
@@ -229,7 +213,6 @@ export default function Perfil() {
                     {usuario.puntos || 0} Puntos
                   </p>
                 </div>
-
                 <div className="mt-3">
                   <p className="small mb-1">Progreso al siguiente nivel</p>
                   <div className="progress" style={{ height: "20px" }}>
@@ -244,7 +227,6 @@ export default function Perfil() {
                     {nivelInfo.progreso} / {nivelInfo.siguiente} puntos
                   </p>
                 </div>
-
                 <div className="mt-4 p-3 bg-dark text-white rounded">
                   <p className="small mb-1">Tu código de referido:</p>
                   <h5 className="mb-0 text-success">
@@ -380,17 +362,16 @@ export default function Perfil() {
               </div>
             </div>
 
-            {/* Historial de Compras */}
+            {/* Nuevo Panel - Botón Mis Pedidos */}
             <div className="card shadow-lg border-0 mt-4">
               <div className="card-header bg-primary text-white">
                 <h5 className="mb-0">
-                  <i className="bi bi-bag-check-fill"></i> Mis Compras
+                  <i className="bi bi-bag-check-fill"></i> Mis Pedidos
                 </h5>
               </div>
               <div className="card-body">
-                <p className="text-muted">No tienes compras registradas aún.</p>
-                <button className="btn btn-primary" onClick={() => navigate("/productos")}>
-                  <i className="bi bi-cart-fill"></i> Ir a comprar
+                <button className="btn btn-primary" onClick={() => navigate("/historial")}>
+                  <i className="bi bi-bag-check-fill"></i> Ver mis pedidos
                 </button>
               </div>
             </div>
