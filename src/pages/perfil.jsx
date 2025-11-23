@@ -32,8 +32,9 @@ export default function Perfil() {
       }
       const userLocal = JSON.parse(storedUser);
       try {
+        // ⭐ CORRECCIÓN 1: Agregar /email/ antes del email
         const response = await axios.get(
-          `http://localhost:8080/api/usuarios/${userLocal.email}`,
+          `http://localhost:8080/api/usuarios/email/${userLocal.email}`,
           { headers: { "x-api-key": "lvlupgamer1306" } }
         );
         setUsuario(response.data);
@@ -44,6 +45,8 @@ export default function Perfil() {
           telefono: response.data.telefono || "",
         });
         localStorage.setItem("user", JSON.stringify(response.data));
+        
+        // Cargar foto
         const fotoResponse = await axios.get(
           `http://localhost:8080/api/usuarios/${response.data.idUsuario}/foto`,
           {
@@ -60,6 +63,7 @@ export default function Perfil() {
         const contentType = fotoResponse.headers["content-type"];
         setFotoBase64(`data:${contentType};base64,${base64}`);
       } catch (error) {
+        console.error("Error al cargar usuario:", error);
         setUsuario(userLocal);
         setFormData({
           nombre: userLocal.nombre || "",
@@ -116,6 +120,7 @@ export default function Perfil() {
         },
         { headers: { "x-api-key": "lvlupgamer1306" } }
       );
+      
       if (nuevaFoto) {
         const formImage = new FormData();
         formImage.append("foto", nuevaFoto);
@@ -129,6 +134,8 @@ export default function Perfil() {
             },
           }
         );
+        
+        // Recargar foto
         const fotoResponse = await axios.get(
           `http://localhost:8080/api/usuarios/${usuario.idUsuario}/foto`,
           {
@@ -145,13 +152,16 @@ export default function Perfil() {
         const contentType = fotoResponse.headers["content-type"];
         setFotoBase64(`data:${contentType};base64,${base64}`);
       }
+      
       Swal.fire({
         icon: "success",
         title: "¡Perfil actualizado!",
         confirmButtonColor: "#2ecc71",
       });
+      
+      // ⭐ CORRECCIÓN 2: Agregar /email/ antes del email
       const refreshed = await axios.get(
-        `http://localhost:8080/api/usuarios/${usuario.email}`,
+        `http://localhost:8080/api/usuarios/email/${usuario.email}`,
         { headers: { "x-api-key": "lvlupgamer1306" } }
       );
       setUsuario(refreshed.data);
@@ -165,6 +175,7 @@ export default function Perfil() {
       setEditMode(false);
       localStorage.setItem("user", JSON.stringify(refreshed.data));
     } catch (error) {
+      console.error("Error al actualizar:", error);
       Swal.fire({
         icon: "error",
         title: "Error al actualizar",
