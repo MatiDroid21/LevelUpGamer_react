@@ -65,7 +65,7 @@ export default function RegisterComponent() {
     try {
       //
       const response = await axios.post(
-        "http://localhost:8080/api/usuarios/registro",
+        "http://3.151.223.174:8080/api/usuarios/registro",
         formData,
         {
           headers: {

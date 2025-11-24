@@ -163,7 +163,7 @@ export default function Productos() {
     const fetchProductos = async () => {
       try {
         const respuesta = await axios.get(
-          "http://localhost:8081/api/productos/disponibles",
+          "http://3.151.223.174:8081/api/productos/disponibles",
           {
             headers: { "x-api-key": "lvlupgamer1306" },
           }
@@ -172,7 +172,7 @@ export default function Productos() {
         // Asignar URL dinámica de imagen para cada producto
         const productosConImagen = respuesta.data.data.map((p) => ({
           ...p,
-          imagen: `http://localhost:8081/api/productos/imagen/${p.idProducto}`,
+          imagen: `http://3.151.223.174:8081/api/productos/imagen/${p.idProducto}`,
         }));
 
         setProductos(productosConImagen);

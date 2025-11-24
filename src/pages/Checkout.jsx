@@ -86,7 +86,7 @@ export default function Checkout() {
 
     // Registrar pedido en backend API /api/pedidos
     axios
-      .post("http://localhost:8083/api/pedidos", pedido, {
+      .post("http://3.151.223.174:8083/api/pedidos", pedido, {
         headers: { "x-api-key": "lvlupgamer1306" },
       })
       .then((res) => {
